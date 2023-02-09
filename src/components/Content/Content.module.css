@@ -1,0 +1,14 @@
+.content {
+    grid-area: c;
+    background-color: #61dafb;
+    border-style: solid;
+}
+
+.content img{
+    border-bottom-style: solid;
+}
+
+.my_logo{
+    width: 30px;
+    border-radius: 50%;
+}

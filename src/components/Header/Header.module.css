@@ -1,13 +1,13 @@
-.header{
-    height: 100px;
-    background-color: #61dafb;
+.header {
+    grid-area: h;
+    background-color: darkcyan;
+    border-style: solid;
+
 }
 
-.header a{
-    alignment: left;
-}
-.headerImg{
+.header img{
+    width: 50px;
+    border-right-style: solid;
 
-    height: 45px;
-    width: 45px;
+
 }
