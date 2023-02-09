@@ -1,0 +1,13 @@
+.header{
+    height: 100px;
+    background-color: #61dafb;
+}
+
+.header a{
+    alignment: left;
+}
+.headerImg{
+
+    height: 45px;
+    width: 45px;
+}
