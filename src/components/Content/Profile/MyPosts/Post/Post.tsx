@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from "./Post.module.css";
 import logo from "../../../../../img/my_logo.png";
 
-const Post = () => {
+type PostType = {
+    message: string
+}
+const Post: FC<PostType> = (props) => {
     return (
         <div>
             <div className={s.post}>
                 <img className={s.my_logo} src={logo} alt="my_logo"/>
-                post1
+                {props.message}
                 <div><span>like</span></div>
             </div>
         </div>

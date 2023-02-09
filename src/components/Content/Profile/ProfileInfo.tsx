@@ -10,7 +10,7 @@ const ProfileInfo = () => {
                 <img className={s.my_logo} src={logo} alt="my_logo"/>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti fugit sapiente tempore totam
                     velit, vitae. Aspernatur, blanditiis consequuntur cum doloremque dolores ea eum exercitationem fugit
-                    nisi saepe, sed voluptates? Debitis.</p> {/*Profile*/}
+                    nisi saepe, sed voluptates? Debitis.</p>
             </div>
             <MyPosts/>
         </div>
