@@ -5,17 +5,21 @@ import Post from "./Post/Post";
 const MyPosts = () => {
     return (
         <div className={s.myPosts}>
-            My posts
-            <div>
-                <textarea></textarea>
-                <button>Add post</button>
-            </div>
-            <div className={s.posts}>
-                <Post message={'Hi! How are you?'}/>
-                <Post message={'Lorem ipsum dolor.'}/>
-                <Post message={'Lorem ipsum dolor sit.'}/>
-            </div>
-
+            <fieldset>
+                <legend>
+                    <div><h3>My posts</h3></div>
+                </legend>
+                <div className={s.addPost}>
+                    <div><textarea cols={50} rows={5}></textarea></div>
+                    <button type="submit">Submit</button>
+                    <button type="reset">Reset</button>
+                    <div className={s.posts}>
+                        <Post message={'Hi! How are you?'}/>
+                        <Post message={'Lorem ipsum dolor.'}/>
+                        <Post message={'Lorem ipsum dolor sit.'}/>
+                    </div>
+                </div>
+            </fieldset>
         </div>
     );
 };

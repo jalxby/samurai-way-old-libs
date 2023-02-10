@@ -1,12 +1,15 @@
 import React from 'react';
 import s from "./Dialog.module.css"
+import DialogItem from "./DialogItem/DialogItem";
 
 const Dialog = () => {
     return (
         <div className={s.dialog}>
-            <div className={s.message}>Hi!</div>
-            <div className={s.message}>It-kamasutra</div>
-            <div className={s.message}>How are you?</div>
+
+            <DialogItem message={'Hi!'}/>
+            <DialogItem message={'It-kamasutra'}/>
+            <DialogItem message={'How are you?'}/>
+
         </div>
     );
 };
