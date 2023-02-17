@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 
 type DialogsItemType = {
     name: string
-    id: number
+    id: string
 }
 export const DialogsItem: FC<DialogsItemType> = (props) => {
     let path = '/messages/' + props.id

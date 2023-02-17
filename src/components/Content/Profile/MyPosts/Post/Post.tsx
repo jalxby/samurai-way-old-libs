@@ -4,6 +4,7 @@ import logo from "../../../../../img/my_logo.png";
 
 type PostType = {
     message: string
+    likes: number
 }
 const Post: FC<PostType> = (props) => {
     return (
@@ -11,7 +12,7 @@ const Post: FC<PostType> = (props) => {
             <div className={s.post}>
                 <img className={s.my_logo} src={logo} alt="my_logo"/>
                 {props.message}
-                <div><span>like</span></div>
+                <div><span>likes: {props.likes}</span></div>
             </div>
         </div>
     );

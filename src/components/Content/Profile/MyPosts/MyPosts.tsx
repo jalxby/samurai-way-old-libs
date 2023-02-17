@@ -1,8 +1,30 @@
 import React from 'react';
 import s from "./MyPosts.module.css"
 import Post from "./Post/Post";
+import {v1} from "uuid";
 
 const MyPosts = () => {
+
+    let postsData = [
+        {
+            id: v1(),
+            message: "Hi! How are you?",
+            likes: 4
+        },
+        {
+            id: v1(),
+            message: "Lorem ipsum dolor.",
+            likes: 7
+        },
+        {
+            id: v1(),
+            message: "Lorem ipsum dolor sit.",
+            likes: 14
+        },
+    ]
+
+    const posts = postsData.map(p => <Post message={p.message} likes={p.likes}/>)
+
     return (
         <div className={s.myPosts}>
             <fieldset>
@@ -14,9 +36,7 @@ const MyPosts = () => {
                     <button type="submit">Submit</button>
                     <button type="reset">Reset</button>
                     <div className={s.posts}>
-                        <Post message={'Hi! How are you?'}/>
-                        <Post message={'Lorem ipsum dolor.'}/>
-                        <Post message={'Lorem ipsum dolor sit.'}/>
+                        {posts}
                     </div>
                 </div>
             </fieldset>
