@@ -1,7 +1,10 @@
 import React from 'react';
 import {v1} from "uuid";
-import {rerender} from "../render";
 
+let rerenderEntireTree = (state: StateType) => {
+    console.log('state changed')
+}
+type ObserverType = (state: StateType) => void
 export type StateType = {
     profilePage: ProfilePageType
     messagesPage: MessagePageType
@@ -99,10 +102,15 @@ export const addPost = () => {
     state.profilePage.posts.push(
         {id: v1(), message: state.profilePage.postTxtAreaValue, likes: 0})
     state.profilePage.postTxtAreaValue = ''
-    rerender(state)
+    rerenderEntireTree(state)
 }
 
 export const changePostTxtAreaValue = (message: string) => {
     state.profilePage.postTxtAreaValue = message
-    rerender(state)
+    rerenderEntireTree(state)
+}
+
+export const subscribe = (observer: ObserverType) => {
+    rerenderEntireTree = observer
+
 }
