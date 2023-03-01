@@ -1,32 +1,26 @@
-import React from 'react';
+import React, {RefObject} from 'react';
 import s from "./Dialog.module.css"
 import DialogItem from "./DialogItem/DialogItem";
-import {v1} from "uuid";
+import {MessageType} from "../../../../redux/state";
 
-const Dialog = () => {
-
-    let messages = [
-        {
-            id: v1(),
-            message: "Hi!"
-        },
-        {
-            id: v1(),
-            message: "It-kamasutra"
-        },
-        {
-            id: v1(),
-            message: "How are you?"
-        },
-    ]
-
+type DialogsType = {
+    messages: Array<MessageType>
+}
+const Dialog = ({messages}: DialogsType) => {
+    const newMessageLink: RefObject<HTMLTextAreaElement> = React.createRef()
+    const addMessageHandler = () => {
+        alert(newMessageLink.current?.value)
+    }
     const dialogItems = messages.map(m => <DialogItem message={m.message}/>)
 
     return (
         <div className={s.dialog}>
-
             {dialogItems}
-
+            <div>
+                <textarea ref={newMessageLink} cols={50} rows={5}></textarea>
+            </div>
+            <button onClick={addMessageHandler} type="submit">Submit</button>
+            <button type="reset">Reset</button>
         </div>
     );
 };

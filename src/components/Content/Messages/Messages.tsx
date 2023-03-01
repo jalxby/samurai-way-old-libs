@@ -1,14 +1,18 @@
-import React from 'react';
-import Dialogs from "./Dialogs/Dialogs";
+import React, {FC} from 'react';
+import Friends from "./Friends/Friends";
 import Dialog from "./Dialog/Dialog";
 import s from "./Messages.module.css"
+import {MessagePageType} from "../../../redux/state";
 
-const Messages = () => {
+type MessagesType = {
+    messagesPage: MessagePageType
+}
+const Messages: FC<MessagesType> = ({messagesPage: {friends, messages}}) => {
     return (
         <div className={s.messages}>
-            <Dialogs/>
+            <Friends friends={friends}/>
             <div className={s.vl}></div>
-            <Dialog/>
+            <Dialog messages={messages}/>
         </div>
     );
 };

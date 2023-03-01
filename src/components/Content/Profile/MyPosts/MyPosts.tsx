@@ -1,29 +1,29 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from "./MyPosts.module.css"
 import Post from "./Post/Post";
-import {v1} from "uuid";
+import {ProfilePageType} from "../../../../redux/state";
 
-const MyPosts = () => {
+type MyPostsType = {
+    profilePage: ProfilePageType
+    addPost: () => void
+    changePostTxtAreaValue: (message: string) => void
+}
+const MyPosts: FC<MyPostsType> = ({profilePage, addPost, ...props}) => {
+    const postsData = profilePage.posts.map(p => <Post message={p.message} likes={p.likes}/>)
 
-    let postsData = [
-        {
-            id: v1(),
-            message: "Hi! How are you?",
-            likes: 4
-        },
-        {
-            id: v1(),
-            message: "Lorem ipsum dolor.",
-            likes: 7
-        },
-        {
-            id: v1(),
-            message: "Lorem ipsum dolor sit.",
-            likes: 14
-        },
-    ]
+    let newPostElement = React.createRef<HTMLTextAreaElement>()
 
-    const posts = postsData.map(p => <Post message={p.message} likes={p.likes}/>)
+    const addPostHandler = () => {
+
+        addPost()
+
+    }
+
+    const txtAreaHandler = () => {
+        if (newPostElement.current) {
+            props.changePostTxtAreaValue(newPostElement.current.value)
+        }
+    }
 
     return (
         <div className={s.myPosts}>
@@ -32,11 +32,14 @@ const MyPosts = () => {
                     <div><h3>My posts</h3></div>
                 </legend>
                 <div className={s.addPost}>
-                    <div><textarea cols={50} rows={5}></textarea></div>
-                    <button type="submit">Submit</button>
+                    <div>
+                        <textarea onChange={txtAreaHandler} value={profilePage.postTxtAreaValue}
+                                  ref={newPostElement}></textarea>
+                    </div>
+                    <button onClick={addPostHandler} type="submit">Submit</button>
                     <button type="reset">Reset</button>
                     <div className={s.posts}>
-                        {posts}
+                        {postsData}
                     </div>
                 </div>
             </fieldset>

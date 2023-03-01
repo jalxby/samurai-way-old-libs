@@ -2,12 +2,9 @@
     grid-area: h;
     background-color: darkcyan;
     border-style: solid;
-
 }
 
 .header img {
     width: 50px;
     border-right-style: solid;
-
-
 }

@@ -1,8 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import {rerender} from "./render";
+import {state} from "./redux/state";
 
-
-ReactDOM.render(<App/>, document.getElementById('root')
-);
+rerender(state)
