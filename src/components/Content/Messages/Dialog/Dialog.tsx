@@ -1,23 +1,34 @@
-import React, {RefObject} from 'react';
+import React, {FC, RefObject} from 'react';
 import s from "./Dialog.module.css"
 import DialogItem from "./DialogItem/DialogItem";
-import {MessageType} from "../../../../redux/state";
+import {ActionType, MessagesPageType} from "../../../../redux/store";
+import {addMessageActionCreator, changeDialogsTxtAreaValueActionCreator} from "../../../../redux/dialogs-reducer";
 
 type DialogsType = {
-    messages: Array<MessageType>
+    messages: MessagesPageType
+    dispatch: (action: ActionType) => void
 }
-const Dialog = ({messages}: DialogsType) => {
-    const newMessageLink: RefObject<HTMLTextAreaElement> = React.createRef()
+const Dialog: FC<DialogsType> = ({messages, ...props}) => {
+    const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef()
+
     const addMessageHandler = () => {
-        alert(newMessageLink.current?.value)
+        props.dispatch(addMessageActionCreator())
     }
-    const dialogItems = messages.map(m => <DialogItem message={m.message}/>)
+
+    const changeTxtAreaValue = () => {
+        if (newMessageElement.current) {
+            props.dispatch(changeDialogsTxtAreaValueActionCreator(newMessageElement.current.value))
+        }
+    }
+
+    const dialogItems = messages.messages.map(m => <DialogItem message={m.message}/>)
 
     return (
         <div className={s.dialog}>
             {dialogItems}
             <div>
-                <textarea ref={newMessageLink} cols={50} rows={5}></textarea>
+                <textarea ref={newMessageElement} cols={50} rows={5} value={messages.dialogsTxtAreaValue}
+                          onChange={changeTxtAreaValue}></textarea>
             </div>
             <button onClick={addMessageHandler} type="submit">Submit</button>
             <button type="reset">Reset</button>

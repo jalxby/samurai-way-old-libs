@@ -1,22 +1,20 @@
 import React, {FC} from 'react';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ProfilePageType} from "../../../redux/state";
+import {ActionType, ProfilePageType} from "../../../redux/store";
 
 type ProfileType = {
-    addPost: () => void
     profilePage: ProfilePageType
-    changePostTxtAreaValue: (message: string) => void
+    dispatch: (action: ActionType) => void
 }
 
-const Profile: FC<ProfileType> = ({profilePage, addPost, ...props}) => {
+const Profile: FC<ProfileType> = ({profilePage, ...props}) => {
     return (
         <div>
             <ProfileInfo/>
             <MyPosts
-                addPost={addPost}
                 profilePage={profilePage}
-                changePostTxtAreaValue={props.changePostTxtAreaValue}
+                dispatch={props.dispatch}
             />
         </div>
     );

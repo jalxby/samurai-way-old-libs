@@ -4,12 +4,11 @@ import Content from "./components/Content/Content";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import {BrowserRouter} from "react-router-dom";
-import {StateType} from "./redux/state";
+import {ActionType, StateType} from "./redux/store";
 
 type AppType = {
     state: StateType
-    addPost: () => void
-    changePostTxtAreaValue: (message: string) => void
+    dispatch: (action: ActionType) => void
 }
 const App: FC<AppType> = ({state, ...props}) => {
     return (
@@ -19,8 +18,7 @@ const App: FC<AppType> = ({state, ...props}) => {
                 <Sidebar/>
                 <Content
                     state={state}
-                    addPost={props.addPost}
-                    changePostTxtAreaValue={props.changePostTxtAreaValue}
+                    dispatch={props.dispatch}
                 />
             </div>
         </BrowserRouter>

@@ -4,27 +4,31 @@ import s from "./Content.module.css"
 import Messages from "./Messages/Messages";
 import {Route} from "react-router-dom";
 import Profile from "./Profile/Profile";
-import {StateType} from "../../redux/state";
+import {ActionType, StateType} from "../../redux/store";
 
 type ContentType = {
     state: StateType
-    addPost: () => void
-    changePostTxtAreaValue: (message: string) => void
+    dispatch: (action: ActionType) => void
 }
-const Content: FC<ContentType> = ({state, addPost, ...props}) => {
+const Content: FC<ContentType> = ({state, ...props}) => {
 
     return (
 
         <div className={s.content}>
             <img src={head_logo} alt={'head_content_img'}/>
             <div>
-                <Route path={'/profile'} render={() => <Profile
-                    addPost={addPost}
-                    profilePage={state.profilePage}
-                    changePostTxtAreaValue={props.changePostTxtAreaValue}
-                />
-                }/>
-                <Route path={'/messages'} render={() => <Messages messagesPage={state.messagesPage}/>}/>
+                <Route path={'/profile'}
+                       render={() => <Profile
+                           profilePage={state.profilePage}
+                           dispatch={props.dispatch}
+                       />
+                       }/>
+                <Route path={'/messages'}
+                       render={() => <Messages
+                           messagesPage={state.messagesPage}
+                           dispatch={props.dispatch}
+                       />
+                       }/>
             </div>
         </div>
 
