@@ -4,7 +4,7 @@ import s from "./Content.module.css"
 import Messages from "./Messages/Messages";
 import {Route} from "react-router-dom";
 import Profile from "./Profile/Profile";
-import {ActionType, StateType} from "../../redux/store";
+import {ActionType, StateType} from "../../redux/Types";
 
 type ContentType = {
     state: StateType

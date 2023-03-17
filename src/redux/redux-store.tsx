@@ -1,4 +1,3 @@
-
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import {combineReducers, createStore} from "redux";

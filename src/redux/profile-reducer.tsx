@@ -1,16 +1,22 @@
 import {v1} from "uuid";
-import {ActionType, ProfilePageType} from "./store";
+import {ActionType, ProfilePageType} from "./Types";
 
 const ADD_POST = 'ADD-POST';
 const CHANGE_POST_TXT_AREA_VALUE = 'CHANGE-POST-TXT-AREA-VALUE'
 
-export const addPostActionCreator = (): ActionType => ({type: ADD_POST})
-export const changePostTxtAreaValueActionCreator = (text: string): ActionType => ({
-    type: CHANGE_POST_TXT_AREA_VALUE,
-    payload: text
-})
 
-const initialState = {
+export const addPostAC = () => ({type: ADD_POST} as const)
+export const changePostTxtAreaValueAC = (text: string) => {
+    return {
+        type: CHANGE_POST_TXT_AREA_VALUE,
+        payload: {
+            text
+        }
+    } as const
+}
+
+
+const initialState: ProfilePageType = {
     posts: [
         {
             id: v1(),
@@ -31,17 +37,17 @@ const initialState = {
     postTxtAreaValue: ''
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: ActionType
-) => {
+const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
+
     switch (action.type) {
         case ADD_POST:
-            state.posts.push(
-                {id: v1(), message: state.postTxtAreaValue, likes: 0})
-            state.postTxtAreaValue = ''
-            return state
+            return {
+                ...state,
+                posts: [...state.posts, {id: v1(), message: state.postTxtAreaValue, likes: 0}],
+                postTxtAreaValue: ''
+            }
         case CHANGE_POST_TXT_AREA_VALUE:
-            state.postTxtAreaValue = action.payload
-            return state
+            return {...state, postTxtAreaValue: action.payload.text}
         default:
             return state
     }

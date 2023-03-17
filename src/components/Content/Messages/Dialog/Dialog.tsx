@@ -1,8 +1,9 @@
 import React, {FC, RefObject} from 'react';
 import s from "./Dialog.module.css"
 import DialogItem from "./DialogItem/DialogItem";
-import {ActionType, MessagesPageType} from "../../../../redux/store";
-import {addMessageActionCreator, changeDialogsTxtAreaValueActionCreator} from "../../../../redux/dialogs-reducer";
+import {ActionType, MessagesPageType} from "../../../../redux/Types";
+import {addMessageAC, changeDialogsTxtAreaValueAC} from "../../../../redux/dialogs-reducer";
+import {v1} from "uuid";
 
 type DialogsType = {
     messages: MessagesPageType
@@ -12,16 +13,16 @@ const Dialog: FC<DialogsType> = ({messages, ...props}) => {
     const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
     const addMessageHandler = () => {
-        props.dispatch(addMessageActionCreator())
+        props.dispatch(addMessageAC())
     }
 
     const changeTxtAreaValue = () => {
         if (newMessageElement.current) {
-            props.dispatch(changeDialogsTxtAreaValueActionCreator(newMessageElement.current.value))
+            props.dispatch(changeDialogsTxtAreaValueAC(newMessageElement.current.value))
         }
     }
 
-    const dialogItems = messages.messages.map(m => <DialogItem message={m.message}/>)
+    const dialogItems = messages.messages.map(m => <DialogItem key={v1()} message={m.message}/>)
 
     return (
         <div className={s.dialog}>

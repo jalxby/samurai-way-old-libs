@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import Friends from "./Friends/Friends";
 import Dialog from "./Dialog/Dialog";
 import s from "./Messages.module.css"
-import {ActionType, MessagesPageType} from "../../../redux/store";
+import {ActionType, MessagesPageType} from "../../../redux/Types";
 
 type MessagesType = {
     messagesPage: MessagesPageType
