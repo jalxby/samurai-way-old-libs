@@ -4,12 +4,9 @@ import s from "./Content.module.css"
 import Messages from "./Messages/Messages";
 import {Route} from "react-router-dom";
 import Profile from "./Profile/Profile";
-import {Store} from "redux";
-import {StoreType} from "../../redux/redux-store";
-import {ActionType} from "../../redux/Types";
 
 type ContentType = {
-    store: Store<StoreType, ActionType>
+    // store: Store<StoreType, ActionType>
 }
 const Content: FC<ContentType> = (props) => {
 
@@ -20,12 +17,12 @@ const Content: FC<ContentType> = (props) => {
             <div>
                 <Route path={'/profile'}
                        render={() => <Profile
-                           store={props.store}
+                           // store={props.store}
                        />
                        }/>
                 <Route path={'/messages'}
                        render={() => <Messages
-                           store={props.store}
+                           // store={props.store}
                        />
                        }/>
             </div>

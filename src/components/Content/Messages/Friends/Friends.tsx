@@ -1,13 +1,16 @@
-import React, {FC} from 'react';
+import React, {FC, useContext} from 'react';
 import s from "./Friends.module.css"
 import {Friend} from "./Friend/Friend";
-import {FriendType} from "../../../../redux/Types";
 import {v1} from "uuid";
+import {StoreContext} from "../../../../StoreContext";
 
 type FriendsType = {
-    friends: Array<FriendType>
+    // friends: Array<FriendType>
 }
-const Friends: FC<FriendsType> = ({friends}) => {
+const Friends: FC<FriendsType> = (props) => {
+
+    const store = useContext(StoreContext)
+    const friends = store.getState().messagesPage.friends
 
     const dialogsItems = friends.map(d => <Friend key={v1()} name={d.name} id={d.id}/>)
 

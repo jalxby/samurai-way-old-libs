@@ -1,30 +1,32 @@
-import React, {FC} from 'react';
+import React, {FC, useContext} from 'react';
 import {addPostAC, changePostTxtAreaValueAC} from "../../../../redux/profile-reducer";
+import {StoreContext} from "../../../../StoreContext";
 import MyPosts from "./MyPosts";
-import {Store} from "redux";
-import {StoreType} from "../../../../redux/redux-store";
-import {ActionType} from "../../../../redux/Types";
 
 type MyPostsContainerType = {
-    store: Store<StoreType, ActionType>
+    // store: Store<StoreType, ActionType>
 }
-const MyPostsContainer: FC<MyPostsContainerType> = ({store: {dispatch, getState}, ...props}) => {
-    const profilePage = getState().profilePage
-    const postTxtAreaValue = getState().profilePage.postTxtAreaValue
-
+const MyPostsContainer: FC<MyPostsContainerType> = (props) => {
+    const store = useContext(StoreContext);
     const addPostHandler = () => {
-        dispatch(addPostAC())
+        store.dispatch(addPostAC())
     }
 
     const txtAreaHandler = (text: string) => {
-        dispatch(changePostTxtAreaValueAC(text))
+        store.dispatch(changePostTxtAreaValueAC(text))
     }
+    const profilePage = store.getState().profilePage
+    const postTxtAreaValue = store.getState().profilePage.postTxtAreaValue
+
+
     return (
         <MyPosts profilePage={profilePage}
                  postTxtAreaValue={postTxtAreaValue}
                  addPostCallback={addPostHandler}
                  txtAreaCallback={txtAreaHandler}
-        />);
+        />
+    )
+
 };
 
 export default MyPostsContainer;
