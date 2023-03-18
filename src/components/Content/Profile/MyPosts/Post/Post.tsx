@@ -9,7 +9,7 @@ type PostType = {
 }
 const Post: FC<PostType> = (props) => {
     return (
-        <div >
+        <div>
             <div className={s.post}>
                 <img className={s.my_logo} src={logo} alt="my_logo"/>
                 {props.message}

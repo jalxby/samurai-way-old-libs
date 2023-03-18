@@ -1,27 +1,28 @@
 import React, {FC} from 'react';
 import s from "./MyPosts.module.css"
 import Post from "./Post/Post";
-import {ActionType, ProfilePageType} from "../../../../redux/Types";
-import {addPostAC, changePostTxtAreaValueAC} from "../../../../redux/profile-reducer";
+import {ProfilePageType} from "../../../../redux/Types";
 import {v1} from "uuid";
 
 type MyPostsType = {
     profilePage: ProfilePageType
-    dispatch: (action: ActionType) => void
+    postTxtAreaValue: string
+    addPostCallback: () => void
+    txtAreaCallback: (text: string) => void
 }
 
-const MyPosts: FC<MyPostsType> = ({profilePage, ...props}) => {
+const MyPosts: FC<MyPostsType> = ({profilePage, postTxtAreaValue, addPostCallback, txtAreaCallback}) => {
     const postsData = profilePage.posts.map(p => <Post key={v1()} message={p.message} likes={p.likes}/>)
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const addPostHandler = () => {
-        props.dispatch(addPostAC())
+        addPostCallback()
     }
 
     const txtAreaHandler = () => {
         if (newPostElement.current) {
-            props.dispatch(changePostTxtAreaValueAC(newPostElement.current.value))
+            txtAreaCallback(newPostElement.current.value)
         }
     }
     return (
@@ -33,7 +34,7 @@ const MyPosts: FC<MyPostsType> = ({profilePage, ...props}) => {
                 <div className={s.addPost}>
                     <div>
                         <textarea onChange={txtAreaHandler}
-                                  value={profilePage.postTxtAreaValue}
+                                  value={postTxtAreaValue}
                                   ref={newPostElement}></textarea>
                     </div>
                     <button onClick={addPostHandler} type="submit">Submit</button>

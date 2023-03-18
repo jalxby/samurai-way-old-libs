@@ -4,21 +4,21 @@ import Content from "./components/Content/Content";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import {BrowserRouter} from "react-router-dom";
-import {ActionType, StateType} from "./redux/Types";
+import {Store} from "redux";
+import {StoreType} from "./redux/redux-store";
+import {ActionType} from "./redux/Types";
 
 type AppType = {
-    state: StateType
-    dispatch: (action: ActionType) => void
+    store: Store<StoreType, ActionType>
 }
-const App: FC<AppType> = ({state, ...props}) => {
+const App: FC<AppType> = (props) => {
     return (
         <BrowserRouter>
             <div className={s.appWrapper}>
                 <Header/>
                 <Sidebar/>
                 <Content
-                    state={state}
-                    dispatch={props.dispatch}
+                    store={props.store}
                 />
             </div>
         </BrowserRouter>

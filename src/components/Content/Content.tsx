@@ -4,13 +4,14 @@ import s from "./Content.module.css"
 import Messages from "./Messages/Messages";
 import {Route} from "react-router-dom";
 import Profile from "./Profile/Profile";
-import {ActionType, StateType} from "../../redux/Types";
+import {Store} from "redux";
+import {StoreType} from "../../redux/redux-store";
+import {ActionType} from "../../redux/Types";
 
 type ContentType = {
-    state: StateType
-    dispatch: (action: ActionType) => void
+    store: Store<StoreType, ActionType>
 }
-const Content: FC<ContentType> = ({state, ...props}) => {
+const Content: FC<ContentType> = (props) => {
 
     return (
 
@@ -19,14 +20,12 @@ const Content: FC<ContentType> = ({state, ...props}) => {
             <div>
                 <Route path={'/profile'}
                        render={() => <Profile
-                           profilePage={state.profilePage}
-                           dispatch={props.dispatch}
+                           store={props.store}
                        />
                        }/>
                 <Route path={'/messages'}
                        render={() => <Messages
-                           messagesPage={state.messagesPage}
-                           dispatch={props.dispatch}
+                           store={props.store}
                        />
                        }/>
             </div>

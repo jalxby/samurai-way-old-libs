@@ -9,5 +9,5 @@ const reducers = combineReducers({
 })
 
 let store = createStore(reducers)
-
+export type StoreType = ReturnType<typeof reducers>
 export default store
