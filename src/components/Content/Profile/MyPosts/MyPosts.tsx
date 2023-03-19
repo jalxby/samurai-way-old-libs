@@ -1,8 +1,9 @@
-import React, {FC} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 import s from "./MyPosts.module.css"
 import Post from "./Post/Post";
 import {ProfilePageType} from "../../../../redux/Types";
 import {v1} from "uuid";
+import TextField from '@mui/material/TextField';
 
 type MyPostsType = {
     profilePage: ProfilePageType
@@ -11,19 +12,17 @@ type MyPostsType = {
     txtAreaCallback: (text: string) => void
 }
 
-const MyPosts: FC<MyPostsType> = ({profilePage, postTxtAreaValue, addPostCallback, txtAreaCallback}) => {
-    const postsData = profilePage.posts.map(p => <Post key={v1()} message={p.message} likes={p.likes}/>)
-
-    let newPostElement = React.createRef<HTMLTextAreaElement>()
+const MyPosts: FC<MyPostsType> = (props) => {
+    const postsData = props.profilePage.posts.map(p => <Post key={v1()} message={p.message} likes={p.likes}/>)
+    // const [value, setValue] = useState<string>()
+    // let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const addPostHandler = () => {
-        addPostCallback()
+        props.addPostCallback()
     }
 
-    const txtAreaHandler = () => {
-        if (newPostElement.current) {
-            txtAreaCallback(newPostElement.current.value)
-        }
+    const txtAreaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.txtAreaCallback(e.currentTarget.value)
     }
     return (
         <div className={s.myPosts}>
@@ -33,9 +32,17 @@ const MyPosts: FC<MyPostsType> = ({profilePage, postTxtAreaValue, addPostCallbac
                 </legend>
                 <div className={s.addPost}>
                     <div>
-                        <textarea onChange={txtAreaHandler}
-                                  value={postTxtAreaValue}
-                                  ref={newPostElement}></textarea>
+                        {/*<textarea onChange={txtAreaHandler}*/}
+                        {/*          value={props.postTxtAreaValue}*/}
+                        {/*          ref={newPostElement}></textarea>*/}
+                        <TextField
+                            onChange={txtAreaHandler}
+                            value={props.postTxtAreaValue}
+                            id="outlined-multiline-static"
+                            label="Multiline"
+                            multiline
+                            rows={4}
+                        />
                     </div>
                     <button onClick={addPostHandler} type="submit">Submit</button>
                     <button type="reset">Reset</button>

@@ -1,5 +1,6 @@
 .sidebar {
     grid-area: n;
-    background-color: coral;
+    background-color: dodgerblue;
     border-style: solid;
+    border-color: white;
 }

@@ -11,11 +11,17 @@
     font-size: large;
 }
 
+.item a:visited {
+    color: black;
+}
+
 .item a.active {
-    color: white;
+    color: dodgerblue;
 }
 
 .item a:hover {
-    color: white;
+    color: cornflowerblue;
 }
+
+
 

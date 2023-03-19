@@ -5,13 +5,13 @@ import App from './App';
 import store, {StoreType} from "./redux/redux-store";
 import {Store} from "redux";
 import {ActionType} from "./redux/Types";
-import {StoreContext} from "./StoreContext";
+import {Provider} from "react-redux";
 
 const rerender = (store: Store<StoreType, ActionType>) => {
     ReactDOM.render(
-        <StoreContext.Provider value={store}>
+        <Provider store={store}>
             <App/>
-        </StoreContext.Provider>, document.getElementById('root')
+        </Provider>, document.getElementById('root')
     );
 }
 

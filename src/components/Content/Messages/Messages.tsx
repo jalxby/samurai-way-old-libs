@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
-import Friends from "./Friends/Friends";
 import s from "./Messages.module.css"
 import DialogContainer from "./Dialog/DialogContainer";
+import {FriendsContainer} from "./Friends/FriendsContainer";
 
 type MessagesType = {
     // store: Store<StoreType, ActionType>
@@ -9,7 +9,7 @@ type MessagesType = {
 const Messages: FC<MessagesType> = (props) => {
     return (
         <div className={s.messages}>
-            <Friends/>
+            <FriendsContainer/>
             <div className={s.vl}></div>
             <DialogContainer/>
         </div>

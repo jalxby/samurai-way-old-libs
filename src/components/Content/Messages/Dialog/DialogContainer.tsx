@@ -1,32 +1,29 @@
-import React, {FC, useContext} from 'react';
+import React from 'react';
 import {addMessageAC, changeDialogsTxtAreaValueAC} from "../../../../redux/dialogs-reducer";
 import Dialog from "./Dialog";
-import {StoreContext} from "../../../../StoreContext";
+import {connect} from "react-redux";
+import {ActionType, StateType} from "../../../../redux/Types";
+import {Dispatch} from "redux";
 
-type DialogContainer = {
-    // store: Store<StoreType, ActionType>
-}
-const DialogContainer: FC<DialogContainer> = (props) => {
-    const store = useContext(StoreContext)
-    const messages = store.getState().messagesPage.messages
-    const dialogsTxtAreaValue = store.getState().messagesPage.dialogsTxtAreaValue
 
-    const addMessageHandler = () => {
-        store.dispatch(addMessageAC())
+const mapStateToProps = (state: StateType) => {
+    return {
+        messages: state.messagesPage.messages,
+        dialogsTxtAreaValue: state.messagesPage.dialogsTxtAreaValue
     }
-
-    const changeTxtAreaValueHandler = (text: string) => {
-        if (text) {
-            store.dispatch(changeDialogsTxtAreaValueAC(text))
+}
+const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
+    return {
+        addMessageCallback: () => {
+            dispatch(addMessageAC())
+        },
+        changeTxtAreaValueCallback: (text: string) => {
+            if (text) {
+                dispatch(changeDialogsTxtAreaValueAC(text))
+            }
         }
     }
-
-    return (<Dialog messages={messages}
-                    dialogsTxtAreaValue={dialogsTxtAreaValue}
-                    addMessageCallback={addMessageHandler}
-                    changeTxtAreaValueCallback={changeTxtAreaValueHandler}
-
-    />);
-};
+}
+const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(Dialog)
 
 export default DialogContainer;
