@@ -18,7 +18,7 @@ export type StateType = {
     messagesPage: MessagesPageType
     //sidebar: add later!@ToDo
 }
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: Array<PostType>
     postTxtAreaValue: string
 }
@@ -35,7 +35,7 @@ export type MessageType = {
     id: string
     message: string
 }
-export type PostType = {
+type PostType = {
     id: string
     message: string
     likes: number

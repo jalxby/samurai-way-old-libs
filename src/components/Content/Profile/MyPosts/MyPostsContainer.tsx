@@ -2,10 +2,11 @@ import React from 'react';
 import {addPostAC, changePostTxtAreaValueAC} from "../../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {ActionType, StateType} from "../../../../redux/Types";
+import {ActionType} from "../../../../redux/Types";
 import {Dispatch} from "redux";
+import {StoreType} from "../../../../redux/redux-store";
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: StoreType) => {
     return {
         profilePage: state.profilePage,
         postTxtAreaValue: state.profilePage.postTxtAreaValue

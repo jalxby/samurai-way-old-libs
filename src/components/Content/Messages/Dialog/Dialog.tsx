@@ -1,16 +1,10 @@
 import React, {FC, RefObject} from 'react';
 import s from "./Dialog.module.css"
 import DialogItem from "./DialogItem/DialogItem";
-import {MessageType} from "../../../../redux/Types";
 import {v1} from "uuid";
+import {DialogPropsType} from "./DialogContainer";
 
-type DialogType = {
-    messages: MessageType[]
-    dialogsTxtAreaValue: string
-    addMessageCallback: () => void
-    changeTxtAreaValueCallback: (text: string) => void
-}
-const Dialog: FC<DialogType> = (props) => {
+const Dialog: FC<DialogPropsType> = (props) => {
     const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
     const addMessage = () => {
