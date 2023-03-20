@@ -4,6 +4,7 @@ import s from "./Content.module.css"
 import Messages from "./Messages/Messages";
 import {Route} from "react-router-dom";
 import Profile from "./Profile/Profile";
+import {UsersContainer} from "./Users/UsersContainer";
 
 type ContentType = {
     // store: Store<StoreType, ActionType>
@@ -15,16 +16,9 @@ const Content: FC<ContentType> = (props) => {
         <div className={s.content}>
             <img src={head_logo} alt={'head_content_img'}/>
             <div>
-                <Route path={'/profile'}
-                       render={() => <Profile
-                           // store={props.store}
-                       />
-                       }/>
-                <Route path={'/messages'}
-                       render={() => <Messages
-                           // store={props.store}
-                       />
-                       }/>
+                <Route path={'/profile'} render={() => <Profile/>}/>
+                <Route path={'/messages'} render={() => <Messages/>}/>
+                <Route path={'/users'} render={() => <UsersContainer/>}/>
             </div>
         </div>
 

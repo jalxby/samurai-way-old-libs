@@ -1,11 +1,15 @@
 import {addPostAC, changePostTxtAreaValueAC} from "./profile-reducer";
 import {addMessageAC, changeDialogsTxtAreaValueAC} from "./dialogs-reducer";
+import {FollowActionType, SetUsersActionType, UnfollowActionType} from "./users-reducer";
 
 export type ActionType =
     AddPostActionType
     | ChangePostTxtAreaActionType
     | AddMessageActionType
     | ChangeDialogsTxtAreaValueActionType
+    | FollowActionType
+    | UnfollowActionType
+    | SetUsersActionType
 
 type AddPostActionType = ReturnType<typeof addPostAC>
 type ChangePostTxtAreaActionType = ReturnType<typeof changePostTxtAreaValueAC>
@@ -18,7 +22,7 @@ export type StateType = {
     messagesPage: MessagesPageType
     //sidebar: add later!@ToDo
 }
-type ProfilePageType = {
+export type ProfilePageType = {
     posts: Array<PostType>
     postTxtAreaValue: string
 }

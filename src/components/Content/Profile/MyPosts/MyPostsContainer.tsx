@@ -4,9 +4,9 @@ import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {ActionType} from "../../../../redux/Types";
 import {Dispatch} from "redux";
-import {StoreType} from "../../../../redux/redux-store";
+import {StateType} from "../../../../redux/redux-store";
 
-const mapStateToProps = (state: StoreType) => {
+const mapStateToProps = (state: StateType) => {
     return {
         profilePage: state.profilePage,
         postTxtAreaValue: state.profilePage.postTxtAreaValue

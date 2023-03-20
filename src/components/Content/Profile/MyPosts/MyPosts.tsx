@@ -1,9 +1,9 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import s from "./MyPosts.module.css"
 import Post from "./Post/Post";
-import {ProfilePageType} from "../../../../redux/Types";
 import {v1} from "uuid";
 import TextField from '@mui/material/TextField';
+import {ProfilePageType} from "../../../../redux/Types";
 
 type MyPostsType = {
     profilePage: ProfilePageType

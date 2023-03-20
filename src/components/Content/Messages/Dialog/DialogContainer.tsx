@@ -4,7 +4,7 @@ import Dialog from "./Dialog";
 import {connect} from "react-redux";
 import {ActionType, MessageType} from "../../../../redux/Types";
 import {Dispatch} from "redux";
-import {StoreType} from "../../../../redux/redux-store";
+import {StateType} from "../../../../redux/redux-store";
 
 type MapStateToPropsType = {
     messages: Array<MessageType>
@@ -16,7 +16,7 @@ type MapDispatchToProps = {
 }
 export type DialogPropsType = MapStateToPropsType & MapDispatchToProps
 
-const mapStateToProps = (state: StoreType) => {
+const mapStateToProps = (state: StateType):MapStateToPropsType => {
     return {
         messages: state.messagesPage.messages,
         dialogsTxtAreaValue: state.messagesPage.dialogsTxtAreaValue

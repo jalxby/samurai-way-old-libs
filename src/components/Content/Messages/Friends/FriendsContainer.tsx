@@ -1,8 +1,8 @@
 import {connect} from "react-redux";
 import Friends from "./Friends";
-import {StoreType} from "../../../../redux/redux-store";
+import {StateType} from "../../../../redux/redux-store";
 
-const mapStateToProps = (state: StoreType) => {
+const mapStateToProps = (state: StateType) => {
     return {
         friends: state.messagesPage.friends
     }
