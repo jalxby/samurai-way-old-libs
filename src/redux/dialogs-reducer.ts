@@ -1,24 +1,26 @@
 import {v1} from "uuid";
-import {ActionType, MessagesPageType} from "./Types";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const CHANGE_DIALOGS_TXT_AREA_VALUE = 'CHANGE-DIALOGS-TXT-AREA-VALUE';
 
-
-export const addMessageAC = () => {
-    return {type: ADD_MESSAGE} as const
+type MessageType = {
+    id: string
+    message: string
 }
-export const changeDialogsTxtAreaValueAC = (text: string) => {
-    return {
-        type: CHANGE_DIALOGS_TXT_AREA_VALUE,
-        payload: {
-            text
-        }
-    } as const
+type FriendType = {
+    id: string
+    name: string
+}
+type MessagesPageType = {
+    friends: Array<FriendType>
+    messages: Array<MessageType>
+    dialogsTxtAreaValue: string
 }
 
+type ActionType = AddMessageActionType | ChangeDialogsTxtAreaValueActionType
 
-const defaultState: MessagesPageType = {
+type InitialMessagesPageStateType = typeof initialState
+const initialState = {
     friends: [
         {
             id: v1(),
@@ -57,9 +59,9 @@ const defaultState: MessagesPageType = {
         },
     ],
     dialogsTxtAreaValue: ''
-}
+} as MessagesPageType
 
-export const dialogsReducer = (state: MessagesPageType = defaultState, action: ActionType): MessagesPageType => {
+export const dialogsReducer = (state: InitialMessagesPageStateType = initialState, action: ActionType): InitialMessagesPageStateType => {
     switch (action.type) {
         case ADD_MESSAGE:
             return {
@@ -74,4 +76,16 @@ export const dialogsReducer = (state: MessagesPageType = defaultState, action: A
     }
 }
 
-export default dialogsReducer
+type AddMessageActionType = ReturnType<typeof addMessageAC>
+export const addMessageAC = () => {
+    return {type: ADD_MESSAGE} as const
+}
+type ChangeDialogsTxtAreaValueActionType = ReturnType<typeof changeDialogsTxtAreaValueAC>
+export const changeDialogsTxtAreaValueAC = (text: string) => {
+    return {
+        type: CHANGE_DIALOGS_TXT_AREA_VALUE,
+        payload: {
+            text
+        }
+    } as const
+}

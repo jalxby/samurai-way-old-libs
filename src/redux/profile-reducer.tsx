@@ -1,24 +1,22 @@
 import {v1} from "uuid";
-import {ActionType} from "./Types";
 
 const ADD_POST = 'ADD-POST';
 const CHANGE_POST_TXT_AREA_VALUE = 'CHANGE-POST-TXT-AREA-VALUE'
 
-export const addPostAC = () => ({type: ADD_POST} as const)
-export const changePostTxtAreaValueAC = (text: string) => {
-    return {
-        type: CHANGE_POST_TXT_AREA_VALUE,
-        payload: {
-            text
-        }
-    } as const
-}
+
 type PostType = {
     id: string
     message: string
     likes: number
 }
+type ProfilePageType = {
+     posts: Array<PostType>
+     postTxtAreaValue: string
+}
 
+type ActionType = AddPostActionType | ChangePostTxtAreaActionType
+
+type InitialStateType = typeof initialState
 const initialState = {
     posts: [
         {
@@ -36,13 +34,12 @@ const initialState = {
             message: "Lorem ipsum dolor sit.",
             likes: 14
         },
-    ] as Array<PostType>,
+    ] ,
     postTxtAreaValue: ''
-}
+}as ProfilePageType
 
-type InitialStateType = typeof initialState
 
-const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
 
     switch (action.type) {
         case ADD_POST:
@@ -58,4 +55,18 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
     }
 }
 
-export default profileReducer
+type AddPostActionType = ReturnType<typeof addPostAC>
+export const addPostAC = () => {
+    return {
+        type: ADD_POST
+    } as const
+}
+type ChangePostTxtAreaActionType = ReturnType<typeof changePostTxtAreaValueAC>
+export const changePostTxtAreaValueAC = (text: string) => {
+    return {
+        type: CHANGE_POST_TXT_AREA_VALUE,
+        payload: {
+            text
+        }
+    } as const
+}

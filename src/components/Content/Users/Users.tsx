@@ -1,9 +1,9 @@
 import React from 'react';
 import {UsersPropsType} from "./UsersContainer";
 import s from './Users.module.css'
-import {UserType} from "../../../redux/users-reducer";
 import axios from "axios";
 import {v1} from "uuid";
+import {UserType} from "../../../redux/users-reducer";
 
 export const Users = (props: UsersPropsType) => {
 

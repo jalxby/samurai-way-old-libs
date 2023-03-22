@@ -1,11 +1,8 @@
-import {ActionType} from "./Types";
-import {v1} from "uuid";
-
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 
-export type UsersStateType = {
+type UsersPageType = {
     users: Array<UserType>
 }
 export type UserType = {
@@ -20,16 +17,15 @@ export type UserType = {
     followed: boolean
 }
 
-export type InitialStateType = typeof initialState
+type ActionType = FollowActionType | UnfollowActionType | SetUsersActionType
 
+type InitialUsersPageStateType = typeof initialState
 const initialState = {
-    users: [
-
-    ] as Array<UserType>
-}
+    users: []
+}as UsersPageType
 
 
-export const usersReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const usersReducer = (state: InitialUsersPageStateType = initialState, action: ActionType): InitialUsersPageStateType => {
     switch (action.type) {
         case FOLLOW:
             return {...state, users: state.users.map(u => u.id === action.payload.userID ? {...u, followed: true} : u)}
@@ -42,7 +38,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
     }
 }
 
-export type FollowActionType = ReturnType<typeof followAC>
+type FollowActionType = ReturnType<typeof followAC>
 export const followAC = (userID: string) => {
     return {
         type: FOLLOW,
@@ -51,7 +47,7 @@ export const followAC = (userID: string) => {
         }
     } as const
 }
-export type UnfollowActionType = ReturnType<typeof unfollowAC>
+type UnfollowActionType = ReturnType<typeof unfollowAC>
 export const unfollowAC = (userID: string) => {
     return {
         type: UNFOLLOW,
@@ -60,8 +56,8 @@ export const unfollowAC = (userID: string) => {
         }
     } as const
 }
-export type SetUsersActionType = ReturnType<typeof setUsersAC>
-export const setUsersAC = (users: UsersStateType) => {
+type SetUsersActionType = ReturnType<typeof setUsersAC>
+export const setUsersAC = (users: UsersPageType) => {
     return {
         type: SET_USERS,
         payload: {
