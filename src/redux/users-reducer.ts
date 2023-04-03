@@ -1,67 +1,104 @@
-const FOLLOW = 'FOLLOW'
-const UNFOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SET-USERS'
+const FOLLOW = "FOLLOW";
+const UNFOLLOW = "UNFOLLOW";
+const SET_USERS = "SET-USERS";
+const SELECT_PAGE = "SELECT-PAGE";
 
-type UsersPageType = {
-    users: Array<UserType>
-}
 export type UserType = {
-    id: string
-    avatarUrl: string
-    fullName: string
-    status: string
-    location: {
-        city: string
-        country: string
-    }
-    followed: boolean
-}
+  name: string;
+  id: number;
+  photos: {
+    small: string;
+    large: string;
+  };
+  status: string;
+  followed: boolean;
+};
 
-type ActionType = FollowActionType | UnfollowActionType | SetUsersActionType
+export type UsersPageType = {
+  items: UserType[];
+  pageSize: number;
+  totalCount: number;
+  currentPage: number;
+  error: string | null;
+};
 
-type InitialUsersPageStateType = typeof initialState
-const initialState = {
-    users: []
-}as UsersPageType
+type InitialStateType = typeof initialUsersState;
+type ActionType =
+  | FollowACType
+  | UnfollowACType
+  | SetUsersACType
+  | SelectPageACType;
+const initialUsersState = {
+  items: [],
+  pageSize: 10,
+  totalCount: 100,
+  currentPage: 1,
+  error: null,
+} as UsersPageType;
 
+export const usersReducer = (
+  state: InitialStateType = initialUsersState,
+  action: ActionType
+): InitialStateType => {
+  switch (action.type) {
+    case FOLLOW:
+      return {
+        ...state,
+        items: state.items.map((u) =>
+          u.id === action.payload.id ? { ...u, followed: true } : u
+        ),
+      };
+    case UNFOLLOW:
+      return {
+        ...state,
+        items: state.items.map((u) =>
+          u.id === action.payload.id ? { ...u, followed: false } : u
+        ),
+      };
+    case SET_USERS:
+      return { ...state, items: [...state.items, ...action.payload.users] };
+    case SELECT_PAGE:
+      return { ...state, currentPage: action.payload.id };
+    default:
+      return state;
+  }
+};
 
-export const usersReducer = (state: InitialUsersPageStateType = initialState, action: ActionType): InitialUsersPageStateType => {
-    switch (action.type) {
-        case FOLLOW:
-            return {...state, users: state.users.map(u => u.id === action.payload.userID ? {...u, followed: true} : u)}
-        case UNFOLLOW:
-            return {...state, users: state.users.map(u => u.id === action.payload.userID ? {...u, followed: false} : u)}
-        case SET_USERS:
-            return {...state, users: [...state.users, ...action.payload.users.users]}
-        default:
-            return state
-    }
-}
+type FollowACType = ReturnType<typeof followAC>;
+export const followAC = (id: number) => {
+  return {
+    type: FOLLOW,
+    payload: {
+      id,
+    },
+  } as const;
+};
+type UnfollowACType = ReturnType<typeof unfollowAC>;
+export const unfollowAC = (id: number) => {
+  return {
+    type: UNFOLLOW,
+    payload: {
+      id,
+    },
+  } as const;
+};
 
-type FollowActionType = ReturnType<typeof followAC>
-export const followAC = (userID: string) => {
-    return {
-        type: FOLLOW,
-        payload: {
-            userID
-        }
-    } as const
-}
-type UnfollowActionType = ReturnType<typeof unfollowAC>
-export const unfollowAC = (userID: string) => {
-    return {
-        type: UNFOLLOW,
-        payload: {
-            userID
-        }
-    } as const
-}
-type SetUsersActionType = ReturnType<typeof setUsersAC>
-export const setUsersAC = (users: UsersPageType) => {
-    return {
-        type: SET_USERS,
-        payload: {
-            users
-        }
-    } as const
-}
+type SetUsersACType = ReturnType<typeof setUsersAC>;
+export const setUsersAC = (users: UserType[]) => {
+  return {
+    type: SET_USERS,
+    payload: {
+      users,
+    },
+  } as const;
+};
+
+type SelectPageACType = ReturnType<typeof selectPageAC>;
+export const selectPageAC = (id: number) => {
+  return {
+    type: SELECT_PAGE,
+    payload: {
+      id,
+    },
+  } as const;
+};

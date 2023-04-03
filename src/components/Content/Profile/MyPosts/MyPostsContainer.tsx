@@ -1,27 +1,37 @@
-import React from 'react';
-import {addPostAC, changePostTxtAreaValueAC} from "../../../../redux/profile-reducer";
+import React from "react";
+import {
+  addPostAC,
+  changePostTxtAreaValueAC,
+  ProfilePageType,
+} from "../../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
-import {connect} from "react-redux";
-import {ActionType} from "../../../../redux/Types";
-import {Dispatch} from "redux";
-import {StateType} from "../../../../redux/redux-store";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { StateType } from "../../../../redux/redux-store";
 
-const mapStateToProps = (state: StateType) => {
-    return {
-        profilePage: state.profilePage,
-        postTxtAreaValue: state.profilePage.postTxtAreaValue
-    }
-}
-const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
-    return {
-        addPostCallback: () => {
-            dispatch(addPostAC())
-        },
-        txtAreaCallback: (text: string) => {
-            dispatch(changePostTxtAreaValueAC(text))
-        }
-    }
-}
+type MapStatePropsType = ProfilePageType;
+type MapDispatchPropsType = {
+  addPostCallback: () => void;
+  txtAreaCallback: (text: string) => void;
+};
+export type MyPostsPropsType = MapStatePropsType & MapDispatchPropsType;
+const mapStateToProps = (state: StateType): MapStatePropsType => {
+  return {
+    posts: state.profilePage.posts,
+    postTxtAreaValue: state.profilePage.postTxtAreaValue,
+  };
+};
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+  return {
+    addPostCallback: () => {
+      dispatch(addPostAC());
+    },
+    txtAreaCallback: (text: string) => {
+      dispatch(changePostTxtAreaValueAC(text));
+    },
+  };
+};
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 export default MyPostsContainer;

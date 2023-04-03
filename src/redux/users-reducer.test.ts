@@ -1,11 +1,21 @@
-import store from "./redux-store";
+import store, { StateType } from "./redux-store";
+import { followAC, usersReducer } from "./users-reducer";
 
-let testedState
+let testedState: StateType;
 
 beforeEach(() => {
-    testedState = {...store.getState().usersPage}
-})
+  testedState = { ...store.getState() };
+});
 
-test('set  following user', () => {
-
-})
+test("set  following user", () => {
+  const action0 = usersReducer(
+    testedState.usersPage,
+    followAC(testedState.usersPage.items[0].id)
+  );
+  const action1 = usersReducer(
+    testedState.usersPage,
+    followAC(testedState.usersPage.items[1].id)
+  );
+  expect(action0.items[0].followed).toBe(true);
+  expect(action1.items[1].followed).toBe(true);
+});

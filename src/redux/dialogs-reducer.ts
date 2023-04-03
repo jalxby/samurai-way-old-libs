@@ -1,91 +1,98 @@
-import {v1} from "uuid";
+import { v1 } from "uuid";
 
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const CHANGE_DIALOGS_TXT_AREA_VALUE = 'CHANGE-DIALOGS-TXT-AREA-VALUE';
+const ADD_MESSAGE = "ADD-MESSAGE";
+const CHANGE_DIALOGS_TXT_AREA_VALUE = "CHANGE-DIALOGS-TXT-AREA-VALUE";
 
-type MessageType = {
-    id: string
-    message: string
-}
-type FriendType = {
-    id: string
-    name: string
-}
-type MessagesPageType = {
-    friends: Array<FriendType>
-    messages: Array<MessageType>
-    dialogsTxtAreaValue: string
-}
+export type MessageType = {
+  id: string;
+  message: string;
+};
+export type FriendType = {
+  id: string;
+  name: string;
+};
+export type MessagesPageType = {
+  friends: Array<FriendType>;
+  messages: Array<MessageType>;
+  dialogsTxtAreaValue: string;
+};
 
-type ActionType = AddMessageActionType | ChangeDialogsTxtAreaValueActionType
+type ActionType = AddMessageActionType | ChangeDialogsTxtAreaValueActionType;
 
-type InitialMessagesPageStateType = typeof initialState
+type InitialMessagesPageStateType = typeof initialState;
 const initialState = {
-    friends: [
-        {
-            id: v1(),
-            name: "Dimych"
-        },
-        {
-            id: v1(),
-            name: "Alex"
-        },
-        {
-            id: v1(),
-            name: "Victor"
-        },
-        {
-            id: v1(),
-            name: "Victor"
-        },
-        {
-            id: v1(),
-            name: "Sveta"
-        },
+  friends: [
+    {
+      id: v1(),
+      name: "Dimych",
+    },
+    {
+      id: v1(),
+      name: "Alex",
+    },
+    {
+      id: v1(),
+      name: "Victor",
+    },
+    {
+      id: v1(),
+      name: "Victor",
+    },
+    {
+      id: v1(),
+      name: "Sveta",
+    },
+  ],
+  messages: [
+    {
+      id: v1(),
+      message: "Hi!",
+    },
+    {
+      id: v1(),
+      message: "It-kamasutra",
+    },
+    {
+      id: v1(),
+      message: "How are you?",
+    },
+  ],
+  dialogsTxtAreaValue: "",
+} as MessagesPageType;
 
-    ],
-    messages: [
-        {
-            id: v1(),
-            message: "Hi!"
-        },
-        {
-            id: v1(),
-            message: "It-kamasutra"
-        },
-        {
-            id: v1(),
-            message: "How are you?"
-        },
-    ],
-    dialogsTxtAreaValue: ''
-} as MessagesPageType
+export const dialogsReducer = (
+  state: InitialMessagesPageStateType = initialState,
+  action: ActionType
+): InitialMessagesPageStateType => {
+  switch (action.type) {
+    case ADD_MESSAGE:
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          { id: v1(), message: state.dialogsTxtAreaValue },
+        ],
+        dialogsTxtAreaValue: "",
+      };
+    case CHANGE_DIALOGS_TXT_AREA_VALUE:
+      return { ...state, dialogsTxtAreaValue: action.payload.text };
+    default:
+      return state;
+  }
+};
 
-export const dialogsReducer = (state: InitialMessagesPageStateType = initialState, action: ActionType): InitialMessagesPageStateType => {
-    switch (action.type) {
-        case ADD_MESSAGE:
-            return {
-                ...state,
-                messages: [...state.messages, {id: v1(), message: state.dialogsTxtAreaValue}],
-                dialogsTxtAreaValue: ''
-            }
-        case CHANGE_DIALOGS_TXT_AREA_VALUE:
-            return {...state, dialogsTxtAreaValue: action.payload.text}
-        default:
-            return state
-    }
-}
-
-type AddMessageActionType = ReturnType<typeof addMessageAC>
+type AddMessageActionType = ReturnType<typeof addMessageAC>;
 export const addMessageAC = () => {
-    return {type: ADD_MESSAGE} as const
-}
-type ChangeDialogsTxtAreaValueActionType = ReturnType<typeof changeDialogsTxtAreaValueAC>
+  return { type: ADD_MESSAGE } as const;
+};
+type ChangeDialogsTxtAreaValueActionType = ReturnType<
+  typeof changeDialogsTxtAreaValueAC
+>;
 export const changeDialogsTxtAreaValueAC = (text: string) => {
-    return {
-        type: CHANGE_DIALOGS_TXT_AREA_VALUE,
-        payload: {
-            text
-        }
-    } as const
-}
+  return {
+    type: CHANGE_DIALOGS_TXT_AREA_VALUE,
+    payload: {
+      text,
+    },
+  } as const;
+};

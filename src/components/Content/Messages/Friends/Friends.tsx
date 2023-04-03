@@ -1,24 +1,22 @@
-import React, {FC} from 'react';
-import s from "./Friends.module.css"
-import {Friend} from "./Friend/Friend";
-import {v1} from "uuid";
-import {FriendType} from "../../../../redux/Types";
+import React, { FC } from "react";
+import s from "./Friends.module.css";
+import { Friend } from "./Friend/Friend";
+import { v1 } from "uuid";
+import { FriendType } from "../../../../redux/dialogs-reducer";
 
 type FriendsType = {
-    friends: Array<FriendType>
-}
+  friends: Array<FriendType>;
+};
 const Friends: FC<FriendsType> = (props) => {
+  const dialogsItems = props.friends.map((d) => (
+    <Friend key={v1()} name={d.name} id={d.id} />
+  ));
 
-
-    const dialogsItems = props.friends.map(d => <Friend key={v1()} name={d.name} id={d.id}/>)
-
-    return (
-        <div className={s.dialogs}>
-            <div className={s.dialogsItems}>
-                {dialogsItems}
-            </div>
-        </div>
-    );
+  return (
+    <div className={s.dialogs}>
+      <div className={s.dialogsItems}>{dialogsItems}</div>
+    </div>
+  );
 };
 
 export default Friends;

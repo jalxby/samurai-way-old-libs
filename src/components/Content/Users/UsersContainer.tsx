@@ -1,46 +1,52 @@
-import React from 'react';
-import {connect} from "react-redux";
-import {Users} from "./Users";
-import {Dispatch} from "redux";
-import {ActionType} from "../../../redux/Types";
-import {followAC, setUsersAC, unfollowAC, UsersStateType, UserType} from "../../../redux/users-reducer";
-import {StateType} from "../../../redux/redux-store";
+import { connect } from "react-redux";
 
-type mapStateToPropsType = {
-    users: Array<UserType>
-}
+import { StateType } from "../../../redux/redux-store";
+import { Dispatch } from "redux";
+import {
+  followAC,
+  selectPageAC,
+  setUsersAC,
+  unfollowAC,
+  UserType,
+} from "../../../redux/users-reducer";
+import Users from "./Users";
 
-type mapDispatchToPropsType = {
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    setUsers: (users: UsersStateType) => void
-}
+type MapStatePropsType = {
+  items: UserType[];
+  pageSize: number;
+  totalCount: number;
+  currentPage: number;
+};
+type MapDispatchPropsType = {
+  follow: (id: number) => void;
+  unfollow: (id: number) => void;
+  setUsers: (users: UserType[]) => void;
+  setPage: (id: number) => void;
+};
+export type UsersPropsType = MapStatePropsType & MapDispatchPropsType;
+const mapStateToProps = (state: StateType): MapStatePropsType => {
+  return {
+    items: state.usersPage.items,
+    pageSize: state.usersPage.pageSize,
+    totalCount: state.usersPage.totalCount,
+    currentPage: state.usersPage.currentPage,
+  };
+};
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+  return {
+    follow: (id: number) => {
+      dispatch(followAC(id));
+    },
+    unfollow: (id: number) => {
+      dispatch(unfollowAC(id));
+    },
+    setUsers: (users: UserType[]) => {
+      dispatch(setUsersAC(users));
+    },
+    setPage: (id: number) => {
+      dispatch(selectPageAC(id));
+    },
+  };
+};
 
-export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
-
-const mapStateToProps = (state: StateType) => {
-    return {
-        users: state.usersPage.users
-    }
-
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
-    return {
-        follow: (userId: string) => {
-            dispatch(followAC(userId))
-            console.log('I am follow now')
-        },
-        unfollow: (userId: string) => {
-            dispatch(unfollowAC(userId))
-            console.log('I am unfollow now')
-        },
-        setUsers: (users: UsersStateType) => {
-            dispatch(setUsersAC(users))
-        }
-    }
-}
-
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(Users);
