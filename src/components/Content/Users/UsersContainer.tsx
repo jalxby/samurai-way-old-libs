@@ -5,6 +5,7 @@ import { Dispatch } from "redux";
 import {
   followAC,
   selectPageAC,
+  setTotalUsersCountAC,
   setUsersAC,
   unfollowAC,
   UserType,
@@ -21,7 +22,8 @@ type MapDispatchPropsType = {
   follow: (id: number) => void;
   unfollow: (id: number) => void;
   setUsers: (users: UserType[]) => void;
-  setPage: (id: number) => void;
+  setCurrentPage: (id: number) => void;
+  setTotalCount: (totalCount: number) => void;
 };
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType;
 const mapStateToProps = (state: StateType): MapStatePropsType => {
@@ -43,8 +45,11 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     setUsers: (users: UserType[]) => {
       dispatch(setUsersAC(users));
     },
-    setPage: (id: number) => {
+    setCurrentPage: (id: number) => {
       dispatch(selectPageAC(id));
+    },
+    setTotalCount: (totalCount: number) => {
+      dispatch(setTotalUsersCountAC(totalCount));
     },
   };
 };

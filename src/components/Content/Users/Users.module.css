@@ -1,3 +1,11 @@
+.users{
+    padding: 10px;
+}
+
+.buttons{
+
+}
+
 .user {
     display: flex;
     flex-direction: row;

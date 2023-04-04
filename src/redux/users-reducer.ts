@@ -2,6 +2,7 @@ const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
 const SELECT_PAGE = "SELECT-PAGE";
+const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT";
 
 export type UserType = {
   name: string;
@@ -23,15 +24,18 @@ export type UsersPageType = {
 };
 
 type InitialStateType = typeof initialUsersState;
+
 type ActionType =
   | FollowACType
   | UnfollowACType
   | SetUsersACType
-  | SelectPageACType;
+  | SelectPageACType
+  | SetTotalUsersCountACType;
+
 const initialUsersState = {
   items: [],
   pageSize: 10,
-  totalCount: 100,
+  totalCount: 0,
   currentPage: 1,
   error: null,
 } as UsersPageType;
@@ -56,9 +60,12 @@ export const usersReducer = (
         ),
       };
     case SET_USERS:
-      return { ...state, items: [...state.items, ...action.payload.users] };
+      return { ...state, items: [...action.payload.users] };
     case SELECT_PAGE:
       return { ...state, currentPage: action.payload.id };
+    case SET_TOTAL_USERS_COUNT: {
+      return { ...state, totalCount: action.payload.totalCount };
+    }
     default:
       return state;
   }
@@ -99,6 +106,16 @@ export const selectPageAC = (id: number) => {
     type: SELECT_PAGE,
     payload: {
       id,
+    },
+  } as const;
+};
+
+type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>;
+export const setTotalUsersCountAC = (totalCount: number) => {
+  return {
+    type: SET_TOTAL_USERS_COUNT,
+    payload: {
+      totalCount,
     },
   } as const;
 };
