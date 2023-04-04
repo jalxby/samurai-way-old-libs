@@ -3,6 +3,7 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
 const SELECT_PAGE = "SELECT-PAGE";
 const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT";
+const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
 
 export type UserType = {
   name: string;
@@ -20,6 +21,7 @@ export type UsersPageType = {
   pageSize: number;
   totalCount: number;
   currentPage: number;
+  isFetching: boolean;
   error: string | null;
 };
 
@@ -30,13 +32,15 @@ type ActionType =
   | UnfollowACType
   | SetUsersACType
   | SelectPageACType
-  | SetTotalUsersCountACType;
+  | SetTotalUsersCountACType
+  | IsFetchingACType;
 
 const initialUsersState = {
   items: [],
   pageSize: 10,
   totalCount: 0,
   currentPage: 1,
+  isFetching: true,
   error: null,
 } as UsersPageType;
 
@@ -63,9 +67,11 @@ export const usersReducer = (
       return { ...state, items: [...action.payload.users] };
     case SELECT_PAGE:
       return { ...state, currentPage: action.payload.id };
-    case SET_TOTAL_USERS_COUNT: {
+    case SET_TOTAL_USERS_COUNT:
       return { ...state, totalCount: action.payload.totalCount };
-    }
+    case TOGGLE_IS_FETCHING:
+      return { ...state, isFetching: action.payload.isFetching };
+
     default:
       return state;
   }
@@ -116,6 +122,16 @@ export const setTotalUsersCountAC = (totalCount: number) => {
     type: SET_TOTAL_USERS_COUNT,
     payload: {
       totalCount,
+    },
+  } as const;
+};
+
+type IsFetchingACType = ReturnType<typeof isFetchingAC>;
+export const isFetchingAC = (isFetching: boolean) => {
+  return {
+    type: TOGGLE_IS_FETCHING,
+    payload: {
+      isFetching,
     },
   } as const;
 };
