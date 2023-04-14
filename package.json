@@ -11,6 +11,7 @@
     "@projectstorm/react-diagrams": "^7.0.1",
     "@react-buddy/ide-toolbox": "^2.3.1",
     "@react-buddy/palette-antd": "^4.18.1",
+    "@react-buddy/palette-mui": "^5.0.1",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "12.0.0",
     "@testing-library/user-event": "13.2.1",
@@ -70,6 +71,7 @@
     "@types/react-router-dom": "5.3.3",
     "@types/react-test-renderer": "17.0.1",
     "@types/redux-form": "8.3.3",
-    "@types/uuid": "8.3.4"
+    "@types/uuid": "8.3.4",
+    "prettier": "2.8.7"
   }
 }

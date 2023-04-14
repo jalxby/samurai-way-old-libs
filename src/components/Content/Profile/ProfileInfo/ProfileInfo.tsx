@@ -1,11 +1,23 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
-import logo from "../../../../img/my_logo.png";
+import { ProfileType } from "../../../../redux/profile-reducer";
+import { Preloader } from "../../../../Common/Preloader/Preloader";
 
-const ProfileInfo = () => {
+type ProfileInfoPropsType = {
+  profile: ProfileType;
+};
+
+const ProfileInfo = (props: ProfileInfoPropsType) => {
+  if (!props.profile) {
+    return <Preloader />;
+  }
   return (
     <div className={s.profileInfo}>
-      <img className={s.my_logo} src={logo} alt="my_logo" />
+      <img
+        className={s.my_logo}
+        src={props.profile.photos.large}
+        alt="my_logo"
+      />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti fugit
         sapiente tempore totam velit, vitae. Aspernatur, blanditiis consequuntur

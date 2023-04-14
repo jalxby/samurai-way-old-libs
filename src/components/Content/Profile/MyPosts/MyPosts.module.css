@@ -1,18 +1,18 @@
 .myPosts {
-    padding: 10px;
+  padding: 10px;
 }
 
 .addPost {
-    margin-bottom: 10px;
-    margin-top: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .addPost textarea {
-    background-color: aliceblue;
-    outline: none;
-    resize: none;
-    padding: 10px;
-    border: 1px dashed indigo;
+  background-color: aliceblue;
+  outline: none;
+  resize: none;
+  padding: 10px;
+  border: 1px dashed indigo;
 }
 
 /*.addPost button {*/

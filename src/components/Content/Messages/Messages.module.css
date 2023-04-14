@@ -1,11 +1,11 @@
 .messages {
-    display: grid;
-    grid-template-columns: 100px 10px 1fr;
+  display: grid;
+  grid-template-columns: 100px 10px 1fr;
 }
 
 .vl {
-    border-left: 2px solid black;
-    height: 500px;
-    left: 50%;
-    margin-left: -3px;
+  border-left: 2px solid black;
+  height: 500px;
+  left: 50%;
+  margin-left: -3px;
 }

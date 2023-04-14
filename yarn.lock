@@ -1919,6 +1919,13 @@
   dependencies:
     "@react-buddy/ide-toolbox" "^2.3.1"
 
+"@react-buddy/palette-mui@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@react-buddy/palette-mui/-/palette-mui-5.0.1.tgz#9f018a9306b02b7969ab0605f385382061fedef1"
+  integrity sha512-Oi6rwD4BALFSfyx99iO4qZuRNjb1BNBM2ahUXqfugk6EH42zRL7ThdSq1WoQ6XqgEgYVX/jeXyoV4BOEsmUGow==
+  dependencies:
+    "@react-buddy/ide-toolbox" "^2.3.1"
+
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.3.1.tgz#04bc0608f4aa4b2e4b1aebf284344d0f68fda283"
@@ -8085,6 +8092,11 @@ prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha512-ESF23V4SKG6lVSGZgYNpbsiaAkdab6ZgOxe52p7+Kid3W3u3bxR4Vfd/o21dmN7jSt0IwgZ4v5MUd26FEtXE9w==
+
+prettier@2.8.7:
+  version "2.8.7"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.7.tgz#bb79fc8729308549d28fe3a98fce73d2c0656450"
+  integrity sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==
 
 pretty-bytes@^5.3.0, pretty-bytes@^5.4.1:
   version "5.6.0"

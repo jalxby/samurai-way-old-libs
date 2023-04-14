@@ -3,6 +3,7 @@ import s from "./Users.module.css";
 import clsx from "clsx";
 import { v1 } from "uuid";
 import { UserType } from "../../../redux/users-reducer";
+import { NavLink } from "react-router-dom";
 
 type UsersFunctionalPropsType = {
   totalCount: number;
@@ -45,18 +46,20 @@ export const Users = (props: UsersFunctionalPropsType) => {
     return (
       <div key={u.id} className={s.user}>
         <div className={s.avatarAndButton}>
-          <img
-            className={s.usersAvatar}
-            src={u.photos.large}
-            alt={"userLogo"}
-          />
+          <NavLink to={`/profile/${u.id}`}>
+            <img
+              className={s.usersAvatar}
+              src={u.photos.large}
+              alt={"userLogo"}
+            />
+          </NavLink>
           <button onClick={onClickButtonHandler(u)}>{buttonName}</button>
         </div>
         <div className={s.userInfo}>
           <div className={s.userName}>{u.name}</div>
           <div className={s.status}>{u.status}</div>
           <div className={s.location}>
-            <div>{"country"},</div>
+            <div>{u.id},</div>
             <div>{"city"}</div>
           </div>
         </div>

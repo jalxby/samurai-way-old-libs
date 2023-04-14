@@ -2,14 +2,17 @@ import React from "react";
 import {
   addPostAC,
   changePostTxtAreaValueAC,
-  ProfilePageType,
+  PostType,
 } from "../../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { StateType } from "../../../../redux/redux-store";
 
-type MapStatePropsType = ProfilePageType;
+type MapStatePropsType = {
+  posts: PostType[];
+  postTxtAreaValue: string;
+};
 type MapDispatchPropsType = {
   addPostCallback: () => void;
   txtAreaCallback: (text: string) => void;

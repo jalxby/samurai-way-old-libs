@@ -77,8 +77,8 @@ export const usersReducer = (
   }
 };
 
-type FollowACType = ReturnType<typeof followAC>;
-export const followAC = (id: number) => {
+type FollowACType = ReturnType<typeof follow>;
+export const follow = (id: number) => {
   return {
     type: FOLLOW,
     payload: {
@@ -86,8 +86,8 @@ export const followAC = (id: number) => {
     },
   } as const;
 };
-type UnfollowACType = ReturnType<typeof unfollowAC>;
-export const unfollowAC = (id: number) => {
+type UnfollowACType = ReturnType<typeof unfollow>;
+export const unfollow = (id: number) => {
   return {
     type: UNFOLLOW,
     payload: {
@@ -96,8 +96,8 @@ export const unfollowAC = (id: number) => {
   } as const;
 };
 
-type SetUsersACType = ReturnType<typeof setUsersAC>;
-export const setUsersAC = (users: UserType[]) => {
+type SetUsersACType = ReturnType<typeof setUsers>;
+export const setUsers = (users: UserType[]) => {
   return {
     type: SET_USERS,
     payload: {
@@ -106,8 +106,8 @@ export const setUsersAC = (users: UserType[]) => {
   } as const;
 };
 
-type SelectPageACType = ReturnType<typeof selectPageAC>;
-export const selectPageAC = (id: number) => {
+type SelectPageACType = ReturnType<typeof setCurrentPage>;
+export const setCurrentPage = (id: number) => {
   return {
     type: SELECT_PAGE,
     payload: {
@@ -116,8 +116,8 @@ export const selectPageAC = (id: number) => {
   } as const;
 };
 
-type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>;
-export const setTotalUsersCountAC = (totalCount: number) => {
+type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>;
+export const setTotalUsersCount = (totalCount: number) => {
   return {
     type: SET_TOTAL_USERS_COUNT,
     payload: {
@@ -126,8 +126,8 @@ export const setTotalUsersCountAC = (totalCount: number) => {
   } as const;
 };
 
-type IsFetchingACType = ReturnType<typeof isFetchingAC>;
-export const isFetchingAC = (isFetching: boolean) => {
+type IsFetchingACType = ReturnType<typeof toggleIsFetching>;
+export const toggleIsFetching = (isFetching: boolean) => {
   return {
     type: TOGGLE_IS_FETCHING,
     payload: {

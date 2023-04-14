@@ -1,18 +1,13 @@
 import React, { FC } from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import { ProfilePropsType } from "./ProfileContainer";
 
-type ProfileType = {
-  // store: Store<StoreType, ActionType>
-};
-
-const Profile: FC<ProfileType> = (props) => {
+const Profile = (props: ProfilePropsType) => {
   return (
     <div>
-      <ProfileInfo />
-      <MyPostsContainer
-      // store={props.store}
-      />
+      <ProfileInfo profile={props.profile} />
+      <MyPostsContainer />
     </div>
   );
 };
