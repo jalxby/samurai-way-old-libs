@@ -69,13 +69,14 @@ class UsersClass extends React.Component<UsersPropsType> {
       <div>
         {this.props.isFetching && <Preloader />}
         <Users
-          currentPage={this.props.currentPage}
-          follow={this.props.follow}
-          items={this.props.items}
+          {...this.props}
+          // currentPage={this.props.currentPage}
+          // follow={this.props.follow}
+          // items={this.props.items}
           onClickPage={this.onClickPage}
-          pageSize={this.props.pageSize}
-          totalCount={this.props.totalCount}
-          unfollow={this.props.unfollow}
+          // pageSize={this.props.pageSize}
+          // totalCount={this.props.totalCount}
+          // unfollow={this.props.unfollow}
         />
       </div>
     );

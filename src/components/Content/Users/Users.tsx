@@ -4,18 +4,13 @@ import clsx from "clsx";
 import { v1 } from "uuid";
 import { UserType } from "../../../redux/users-reducer";
 import { NavLink } from "react-router-dom";
+import { UsersPropsType } from "./UsersContainer";
 
-type UsersFunctionalPropsType = {
-  totalCount: number;
-  pageSize: number;
-  currentPage: number;
+type PropsType = {
   onClickPage: (el: number) => void;
-  items: UserType[];
-  unfollow: (id: number) => void;
-  follow: (id: number) => void;
-};
+} & UsersPropsType;
 
-export const Users = (props: UsersFunctionalPropsType) => {
+export const Users = (props: PropsType) => {
   const pagesCount = Math.ceil(props.totalCount / props.pageSize);
   const pages = [];
   for (let i = 1; i <= pagesCount; i++) {

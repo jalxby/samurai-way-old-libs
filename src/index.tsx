@@ -18,3 +18,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+
+// @ts-ignore
+window.store = store;

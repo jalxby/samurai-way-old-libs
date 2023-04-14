@@ -3,7 +3,7 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
 const SELECT_PAGE = "SELECT-PAGE";
 const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT";
-const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
+export const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
 
 export type UserType = {
   name: string;
@@ -126,7 +126,7 @@ export const setTotalUsersCount = (totalCount: number) => {
   } as const;
 };
 
-type IsFetchingACType = ReturnType<typeof toggleIsFetching>;
+export type IsFetchingACType = ReturnType<typeof toggleIsFetching>;
 export const toggleIsFetching = (isFetching: boolean) => {
   return {
     type: TOGGLE_IS_FETCHING,

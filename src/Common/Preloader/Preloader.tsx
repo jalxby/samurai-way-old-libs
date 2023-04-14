@@ -1,10 +1,12 @@
 import React from "react";
 import loader from "../../img/loader.svg";
 
-export const Preloader = () => {
+type PropsType = { size?: number };
+
+export const Preloader = (props: PropsType) => {
   return (
     <div>
-      <img src={loader} alt={loader} />
+      <img style={{ width: props.size }} src={loader} alt={loader} />
     </div>
   );
 };
