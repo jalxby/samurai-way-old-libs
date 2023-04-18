@@ -1,4 +1,6 @@
 import { v1 } from "uuid";
+import { Dispatch } from "redux";
+import { usersAPI } from "../api/api";
 
 const ADD_POST = "ADD-POST";
 const CHANGE_POST_TXT_AREA_VALUE = "CHANGE-POST-TXT-AREA-VALUE";
@@ -131,4 +133,11 @@ export const setUserProfile = (profile: ProfileType) => {
       profile,
     },
   } as const;
+};
+export const getProfile = (userId: string) => {
+  return (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId).then((response) => {
+      dispatch(setUserProfile(response.data));
+    });
+  };
 };

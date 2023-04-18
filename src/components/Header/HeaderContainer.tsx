@@ -1,10 +1,10 @@
 import React from "react";
 import Header from "./Header";
-import axios from "axios";
 import { connect } from "react-redux";
 import { setAuthUserData } from "../../redux/auth-reducer";
 import { StateType } from "../../redux/redux-store";
 import { toggleIsFetching } from "../../redux/users-reducer";
+import { authAPI } from "../../api/api";
 
 type MapStatePropsType = {
   isAused: boolean;
@@ -20,15 +20,13 @@ export type HeaderPropsType = MapStatePropsType & MapDispatchPropsType;
 class HeaderContainer extends React.Component<HeaderPropsType> {
   componentDidMount() {
     this.props.toggleIsFetching(true);
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        console.log("response", response.data.data);
-        if (response.data.resultCode === 0) {
+    authAPI
+      .getAuth()
+      .then((data) => {
+        console.log("response", data.data);
+        if (data.resultCode === 0) {
           setTimeout(() => {
-            const { id, login, email } = response.data.data;
+            const { id, login, email } = data.data;
             this.props.setAuthUserData(id, login, email);
             this.props.toggleIsFetching(false);
           }, 5000);

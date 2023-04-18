@@ -17,10 +17,8 @@ export const Users = (props: PropsType) => {
     pages.push(i);
   }
 
-  const onClickButtonHandler = (user: UserType) => {
-    return user.followed
-      ? () => props.unfollow(user.id)
-      : () => props.follow(user.id);
+  const onClickButtonHandler = async (user: UserType) => {
+    props.toggleFollow(user);
   };
 
   const buttons = pages.map((el) => {
@@ -38,6 +36,7 @@ export const Users = (props: PropsType) => {
 
   const users = props.items.map((u) => {
     const buttonName = u.followed ? "Unfollow" : "Follow";
+
     return (
       <div key={u.id} className={s.user}>
         <div className={s.avatarAndButton}>
@@ -48,7 +47,12 @@ export const Users = (props: PropsType) => {
               alt={"userLogo"}
             />
           </NavLink>
-          <button onClick={onClickButtonHandler(u)}>{buttonName}</button>
+          <button
+            onClick={() => onClickButtonHandler(u)}
+            disabled={props.userIsFollowingIDS.some((i) => i === u.id)}
+          >
+            {buttonName}
+          </button>
         </div>
         <div className={s.userInfo}>
           <div className={s.userName}>{u.name}</div>
