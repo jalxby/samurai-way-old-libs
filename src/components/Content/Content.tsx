@@ -5,6 +5,7 @@ import Messages from "./Messages/Messages";
 import { Route } from "react-router-dom";
 import UsersContainer from "./Users/UsersContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
+import Login from "../Login/Login";
 
 type ContentType = {
   // store: Store<StoreType, ActionType>
@@ -17,6 +18,7 @@ const Content: FC<ContentType> = (props) => {
         <Route path={"/profile/:userId?"} render={() => <ProfileContainer />} />
         <Route path={"/messages"} render={() => <Messages />} />
         <Route path={"/users"} render={() => <UsersContainer />} />
+        <Route path={"/login"} render={() => <Login />}></Route>
       </div>
     </div>
   );

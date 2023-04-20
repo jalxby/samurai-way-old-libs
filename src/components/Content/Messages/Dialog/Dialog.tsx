@@ -3,6 +3,7 @@ import s from "./Dialog.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import { v1 } from "uuid";
 import { DialogPropsType } from "./DialogContainer";
+import { Redirect } from "react-router-dom";
 
 const Dialog: FC<DialogPropsType> = (props) => {
   const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef();
@@ -20,6 +21,10 @@ const Dialog: FC<DialogPropsType> = (props) => {
   const dialogItems = props.messages.map((m) => (
     <DialogItem key={v1()} message={m.message} />
   ));
+
+  if (!props.isAuth) {
+    return <Redirect to={"/login"} />;
+  }
 
   return (
     <div className={s.dialog}>
@@ -40,5 +45,4 @@ const Dialog: FC<DialogPropsType> = (props) => {
     </div>
   );
 };
-
 export default Dialog;

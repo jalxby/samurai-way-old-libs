@@ -11,6 +11,7 @@ import { StateType } from "../../../../redux/redux-store";
 
 type MapStateToPropsType = {
   messages: Array<MessageType>;
+  isAuth: boolean;
   dialogsTxtAreaValue: string;
 };
 type MapDispatchToProps = {
@@ -22,6 +23,7 @@ export type DialogPropsType = MapStateToPropsType & MapDispatchToProps;
 const mapStateToProps = (state: StateType): MapStateToPropsType => {
   return {
     messages: state.messagesPage.messages,
+    isAuth: state.auth.isAused,
     dialogsTxtAreaValue: state.messagesPage.dialogsTxtAreaValue,
   };
 };

@@ -35,7 +35,6 @@ const Header = (props: HeaderPropsType) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
           </Typography>
-
           <NavLink to={"/auth"}>{isAused}</NavLink>
         </Toolbar>
       </AppBar>

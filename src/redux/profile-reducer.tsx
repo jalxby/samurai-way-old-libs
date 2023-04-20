@@ -134,7 +134,8 @@ export const setUserProfile = (profile: ProfileType) => {
     },
   } as const;
 };
-export const getProfile = (userId: string) => {
+
+export const getUserProfile = (userId: string) => {
   return (dispatch: Dispatch) => {
     usersAPI.getProfile(userId).then((response) => {
       dispatch(setUserProfile(response.data));

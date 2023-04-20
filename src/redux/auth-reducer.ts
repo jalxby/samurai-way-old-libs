@@ -1,4 +1,10 @@
-import { IsFetchingACType, TOGGLE_IS_FETCHING } from "./users-reducer";
+import {
+  IsFetchingACType,
+  TOGGLE_IS_FETCHING,
+  toggleIsFetching,
+} from "./users-reducer";
+import { authAPI } from "../api/api";
+import { Dispatch } from "redux";
 
 const SET_USER_DATA = "SET-USER-DATA";
 
@@ -48,4 +54,22 @@ export const setAuthUserData = (
       email,
     },
   } as const;
+};
+
+export const getAuthUserData = () => (dispatch: Dispatch) => {
+  dispatch(toggleIsFetching(true));
+  authAPI
+    .getAuth()
+    .then((data) => {
+      if (data.resultCode === 0) {
+        setTimeout(() => {
+          const { id, login, email } = data.data;
+          dispatch(setAuthUserData(id, login, email));
+          dispatch(toggleIsFetching(false));
+        }, 5000);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };

@@ -10,6 +10,7 @@ import {
   toggleFollow,
   UserType,
 } from "../../../redux/users-reducer";
+import { Redirect } from "react-router-dom";
 
 type MapStatePropsType = {
   items: UserType[];
@@ -18,6 +19,7 @@ type MapStatePropsType = {
   currentPage: number;
   isFetching: boolean;
   userIsFollowingIDS: number[];
+  isAuth: boolean;
 };
 
 type MapDispatchPropsType = {
@@ -41,6 +43,9 @@ class UsersClass extends React.Component<UsersPropsType> {
   };
 
   render() {
+    if (!this.props.isAuth) {
+      return <Redirect to={"/login"} />;
+    }
     return (
       <div>
         {this.props.isFetching && <Preloader />}
@@ -58,6 +63,7 @@ const mapStateToProps = (state: StateType): MapStatePropsType => {
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
     userIsFollowingIDS: state.usersPage.userIsFollowingIDS,
+    isAuth: state.auth.isAused,
   };
 };
 
