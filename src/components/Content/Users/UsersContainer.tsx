@@ -11,6 +11,7 @@ import {
   UserType,
 } from "../../../redux/users-reducer";
 import { Redirect } from "react-router-dom";
+import { withAuthRedirect } from "../../../hoc/WithAuthRedirect";
 
 type MapStatePropsType = {
   items: UserType[];
@@ -43,9 +44,6 @@ class UsersClass extends React.Component<UsersPropsType> {
   };
 
   render() {
-    if (!this.props.isAuth) {
-      return <Redirect to={"/login"} />;
-    }
     return (
       <div>
         {this.props.isFetching && <Preloader />}
@@ -72,4 +70,4 @@ export default connect(mapStateToProps, {
   setTotalUsersCount,
   getUsersThunkCreator,
   toggleFollow,
-})(UsersClass);
+})(withAuthRedirect(UsersClass));
