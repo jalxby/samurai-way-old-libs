@@ -30,6 +30,10 @@ export const usersAPI = {
   getProfile(userID: string) {
     return instance.get(`profile/${userID}`);
   },
+
+  getStatus(userID: string){
+    return instance.get(`/profile/status/${userID}`)
+  }
 };
 
 export const authAPI = {

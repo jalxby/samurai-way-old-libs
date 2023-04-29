@@ -1,20 +1,19 @@
-import React, { FC, RefObject } from "react";
+import React, {FC, RefObject} from "react";
 import s from "./Dialog.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 
-import { DialogPropsType } from "./DialogContainer";
-import { Redirect } from "react-router-dom";
-import { v1 } from "uuid";
+import {DialogPropsType} from "./DialogContainer";
+import {v1} from "uuid";
 
 const Dialog: FC<DialogPropsType> = (props) => {
   const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef();
   const addMessage = () => {
-    props.addMessageCallback();
+    props.addMessage();
   };
 
   const changeTxtAreaValue = () => {
     if (newMessageElement.current) {
-      props.changeTxtAreaValueCallback(newMessageElement.current.value);
+      props.changeTxtAreaValue(newMessageElement.current.value);
     }
   };
 

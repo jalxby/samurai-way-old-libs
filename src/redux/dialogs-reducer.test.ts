@@ -1,7 +1,7 @@
 import store from "./redux-store";
 import {
-  addMessageAC,
-  changeDialogsTxtAreaValueAC,
+  addMessage,
+  changeTxtAreaValue,
   dialogsReducer,
   MessagesPageType,
 } from "./dialogs-reducer";
@@ -14,7 +14,7 @@ beforeEach(() => {
 test("adding message should be corrected", () => {
   testedState.dialogsTxtAreaValue = "Message";
 
-  const action = dialogsReducer(testedState, addMessageAC());
+  const action = dialogsReducer(testedState, addMessage());
 
   expect(action.messages.length).toBe(4);
   expect(action.messages[action.messages.length - 1].message).toBe("Message");
@@ -26,7 +26,7 @@ test("updating dialogsTxtAreaValue property", () => {
 
   const action = dialogsReducer(
     testedState,
-    changeDialogsTxtAreaValueAC(newTxtValue)
+      changeTxtAreaValue(newTxtValue)
   );
 
   expect(action.dialogsTxtAreaValue).toBe(newTxtValue);

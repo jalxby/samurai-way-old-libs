@@ -1,10 +1,10 @@
 import React from "react";
 import s from "./Users.module.css";
-import clsx from "clsx";
 import { v1 } from "uuid";
 import { UserType } from "../../../redux/users-reducer";
 import { NavLink, Redirect } from "react-router-dom";
 import { UsersPropsType } from "./UsersContainer";
+import clsx from "clsx";
 
 type PropsType = {
   onClickPage: (el: number) => void;

@@ -81,14 +81,14 @@ export const dialogsReducer = (
   }
 };
 
-type AddMessageActionType = ReturnType<typeof addMessageAC>;
-export const addMessageAC = () => {
+type AddMessageActionType = ReturnType<typeof addMessage>;
+export const addMessage = () => {
   return { type: ADD_MESSAGE } as const;
 };
 type ChangeDialogsTxtAreaValueActionType = ReturnType<
-  typeof changeDialogsTxtAreaValueAC
+  typeof changeTxtAreaValue
 >;
-export const changeDialogsTxtAreaValueAC = (text: string) => {
+export const changeTxtAreaValue = (text: string) => {
   return {
     type: CHANGE_DIALOGS_TXT_AREA_VALUE,
     payload: {

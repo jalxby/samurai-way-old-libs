@@ -1,48 +1,29 @@
 import React from "react";
-import {
-  addMessageAC,
-  changeDialogsTxtAreaValueAC,
-  MessageType,
-} from "../../../../redux/dialogs-reducer";
+import {addMessage, changeTxtAreaValue, MessageType,} from "../../../../redux/dialogs-reducer";
 import Dialog from "./Dialog";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { StateType } from "../../../../redux/redux-store";
-import { withAuthRedirect } from "../../../../hoc/WithAuthRedirect";
+import {connect} from "react-redux";
+import {StateType} from "../../../../redux/redux-store";
+import {withAuthRedirect} from "../../../../hoc/WithAuthRedirect";
 
 type MapStateToPropsType = {
-  messages: Array<MessageType>;
-  dialogsTxtAreaValue: string;
+    messages: Array<MessageType>;
+    dialogsTxtAreaValue: string;
+    isAuth: boolean
 };
 type MapDispatchToProps = {
-  addMessageCallback: () => void;
-  changeTxtAreaValueCallback: (text: string) => void;
+    addMessage: () => void;
+    changeTxtAreaValue: (text: string) => void;
 };
 export type DialogPropsType = MapStateToPropsType & MapDispatchToProps;
 
 const mapStateToProps = (state: StateType): MapStateToPropsType => {
-  return {
-    messages: state.messagesPage.messages,
-    dialogsTxtAreaValue: state.messagesPage.dialogsTxtAreaValue,
-  };
+    return {
+        messages: state.messagesPage.messages,
+        dialogsTxtAreaValue: state.messagesPage.dialogsTxtAreaValue,
+        isAuth: state.auth.isAused,
+    };
 };
-
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-  return {
-    addMessageCallback: () => {
-      dispatch(addMessageAC());
-    },
-    changeTxtAreaValueCallback: (text: string) => {
-      if (text) {
-        dispatch(changeDialogsTxtAreaValueAC(text));
-      }
-    },
-  };
-};
-
-const DialogContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withAuthRedirect(Dialog));
-
-export default DialogContainer;
+export const DialogContainer = connect(mapStateToProps, {
+    addMessage,
+    changeTxtAreaValue,
+})(withAuthRedirect(Dialog));

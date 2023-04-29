@@ -10,7 +10,6 @@ import {
   toggleFollow,
   UserType,
 } from "../../../redux/users-reducer";
-import { Redirect } from "react-router-dom";
 import { withAuthRedirect } from "../../../hoc/WithAuthRedirect";
 
 type MapStatePropsType = {
@@ -64,7 +63,6 @@ const mapStateToProps = (state: StateType): MapStatePropsType => {
     isAuth: state.auth.isAused,
   };
 };
-
 export default connect(mapStateToProps, {
   setUsers,
   setTotalUsersCount,

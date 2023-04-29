@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import s from "./Messages.module.css";
-import DialogContainer from "./Dialog/DialogContainer";
 import { FriendsContainer } from "./Friends/FriendsContainer";
+import { DialogContainer } from "./Dialog/DialogContainer";
 
 type MessagesType = {
   // store: Store<StoreType, ActionType>

@@ -3,9 +3,9 @@ import head_logo from "../../img/head_content_img.png";
 import s from "./Content.module.css";
 import Messages from "./Messages/Messages";
 import { Route } from "react-router-dom";
-import UsersContainer from "./Users/UsersContainer";
-import ProfileContainer from "./Profile/ProfileContainer";
 import Login from "../Login/Login";
+import ProfileContainer from "./Profile/ProfileContainer";
+import UsersContainer from "./Users/UsersContainer";
 
 type ContentType = {
   // store: Store<StoreType, ActionType>
