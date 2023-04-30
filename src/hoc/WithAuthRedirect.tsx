@@ -8,7 +8,6 @@ type MapStatePropsType = {
 
 export function withAuthRedirect<T>(Component: React.ComponentType<T>) {
     return (props: T & MapStatePropsType) => {
-        console.log(props.isAuth);
         if (!props.isAuth) {
             return <Redirect to={"/login"}/>;
         }

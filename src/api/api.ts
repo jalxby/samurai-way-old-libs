@@ -28,13 +28,26 @@ export const usersAPI = {
   },
 
   getProfile(userID: string) {
-    return instance.get(`profile/${userID}`);
+    console.log('please use profileAPI to get Profile instead')
+    return profileAPI.getProfile(userID)
   },
 
+
+};
+
+
+export const profileAPI={
+  getProfile(userID: string) {
+    return instance.get(`profile/${userID}`);
+  },
   getStatus(userID: string){
     return instance.get(`/profile/status/${userID}`)
+  },
+
+  updateStatus(status:string){
+    return instance.put(`/profile/status`,{status})
   }
-};
+}
 
 export const authAPI = {
   getAuth() {

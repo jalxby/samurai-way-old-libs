@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = "ADD-POST";
 const CHANGE_POST_TXT_AREA_VALUE = "CHANGE-POST-TXT-AREA-VALUE";
@@ -91,7 +91,7 @@ export const profileReducer = (
         case SET_USER_PROFILE:
             return {...state, profile: action.payload.profile};
         case SET_USER_STATUS:
-            return {...state,status:action.payload.status}
+            return {...state, status: action.payload.status}
         default:
             return state;
     }
@@ -143,8 +143,18 @@ export const getUserProfile = (userId: string) => {
 
 export const getUserStatus = (userId: string) => {
     return (dispatch: Dispatch) => {
-        usersAPI.getStatus(userId).then((response) => {
-            dispatch(setUserProfile(response.data));
+        profileAPI.getStatus(userId).then((response) => {
+            dispatch(setUserStatus(response.data));
+        })
+    }
+}
+
+export const updateUserStatus = (newStatus: string) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.updateStatus(newStatus).then((response) => {
+            if (response.data.resoltCode === 0) {
+                dispatch(setUserStatus(newStatus));
+            }
         })
     }
 }
