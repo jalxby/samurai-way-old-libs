@@ -28,29 +28,35 @@ export const usersAPI = {
   },
 
   getProfile(userID: string) {
-    console.log('please use profileAPI to get Profile instead')
-    return profileAPI.getProfile(userID)
+    console.log("please use profileAPI to get Profile instead");
+    return profileAPI.getProfile(userID);
   },
-
-
 };
 
-
-export const profileAPI={
+export const profileAPI = {
   getProfile(userID: string) {
     return instance.get(`profile/${userID}`);
   },
-  getStatus(userID: string){
-    return instance.get(`/profile/status/${userID}`)
+  getStatus(userID: string) {
+    return instance.get(`/profile/status/${userID}`);
   },
 
-  updateStatus(status:string){
-    return instance.put(`/profile/status`,{status})
-  }
-}
+  updateStatus(status: string) {
+    return instance.put(`/profile/status`, { status });
+  },
+};
 
 export const authAPI = {
   getAuth() {
     return instance.get(`auth/me`).then((response) => response.data);
+  },
+  login(email: string, password: string, rememberMe: boolean = false) {
+    return instance
+      .post(`/auth/login`, { email, password, rememberMe })
+      .then((response) => response.data);
+  },
+
+  logOff() {
+    return instance.delete(`/auth/login`).then((response) => response.data);
   },
 };

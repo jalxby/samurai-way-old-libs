@@ -1,7 +1,6 @@
 import store from "./redux-store";
 import {
   addMessage,
-  changeTxtAreaValue,
   dialogsReducer,
   MessagesPageType,
 } from "./dialogs-reducer";
@@ -14,20 +13,19 @@ beforeEach(() => {
 test("adding message should be corrected", () => {
   testedState.dialogsTxtAreaValue = "Message";
 
-  const action = dialogsReducer(testedState, addMessage());
+  const action = dialogsReducer(testedState, addMessage("Message"));
 
   expect(action.messages.length).toBe(4);
   expect(action.messages[action.messages.length - 1].message).toBe("Message");
   expect(action.dialogsTxtAreaValue).toBe("");
 });
 
-test("updating dialogsTxtAreaValue property", () => {
-  const newTxtValue = "NewTxtValue";
-
-  const action = dialogsReducer(
-    testedState,
-      changeTxtAreaValue(newTxtValue)
-  );
-
-  expect(action.dialogsTxtAreaValue).toBe(newTxtValue);
-});
+// test("updating dialogsTxtAreaValue property", () => {
+//   const newTxtValue = "NewTxtValue";
+//
+//   const action = dialogsReducer(
+//     testedState,
+//   );
+//
+//   expect(action.dialogsTxtAreaValue).toBe(newTxtValue);
+// });

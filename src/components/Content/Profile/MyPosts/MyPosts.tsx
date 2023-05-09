@@ -1,49 +1,34 @@
-import React, {ChangeEvent, FC} from "react";
+import React, { ChangeEvent, FC } from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import {MyPostsPropsType} from "./MyPostsContainer";
+import { MyPostsPropsType } from "./MyPostsContainer";
+import { FormDataType, ReduxPostForm } from "./PostForm";
 
 const MyPosts: FC<MyPostsPropsType> = (props) => {
-    const postsData = props.posts.map((p) => (
-        <Post key={p.id} message={p.message} likes={p.likes}/>
-    ));
+  const postsData = props.posts.map((p) => (
+    <Post key={p.id} message={p.message} likes={p.likes} />
+  ));
 
-    const addPostHandler = () => {
-        props.addPostCallback();
-    };
+  const submit = (formData: FormDataType) => {
+    props.addPost(formData.post);
+    props.reset("post");
+  };
 
-    const txtAreaHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.txtAreaCallback(e.currentTarget.value);
-    };
-    return (
-        <div className={s.myPosts}>
-            <fieldset>
-                <legend>
-                    <div>
-                        <h3>My posts</h3>
-                    </div>
-                </legend>
-                <div className={s.addPost}>
-                    <div>
-                        {/*<textarea onChange={txtAreaHandler}*/}
-                        {/*          value={props.postTxtAreaValue}*/}
-                        {/*          ref={newPostElement}></textarea>*/}
-                        <input
-                            type={"text"}
-                            onChange={txtAreaHandler}
-                            value={props.postTxtAreaValue}
-                            id="outlined-multiline-static"
-                        />
-                    </div>
-                    <button onClick={addPostHandler} type="submit">
-                        Submit
-                    </button>
-                    <button type="reset">Reset</button>
-                    <div className={s.posts}>{postsData}</div>
-                </div>
-            </fieldset>
+  return (
+    <div className={s.myPosts}>
+      <fieldset>
+        <legend>
+          <div>
+            <h3>My posts</h3>
+          </div>
+        </legend>
+        <div className={s.addPost}>
+          <ReduxPostForm onSubmit={submit} />
+          <div className={s.posts}>{postsData}</div>
         </div>
-    );
+      </fieldset>
+    </div>
+  );
 };
 
 export default MyPosts;

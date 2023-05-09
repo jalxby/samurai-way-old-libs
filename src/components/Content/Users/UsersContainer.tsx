@@ -60,7 +60,7 @@ const mapStateToProps = (state: StateType): MapStatePropsType => {
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
     userIsFollowingIDS: state.usersPage.userIsFollowingIDS,
-    isAuth: state.auth.isAused,
+    isAuth: state.auth.isAuth,
   };
 };
 export default connect(mapStateToProps, {

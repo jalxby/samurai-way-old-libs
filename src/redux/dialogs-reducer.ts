@@ -1,7 +1,6 @@
 import { v1 } from "uuid";
 
 const ADD_MESSAGE = "ADD-MESSAGE";
-const CHANGE_DIALOGS_TXT_AREA_VALUE = "CHANGE-DIALOGS-TXT-AREA-VALUE";
 
 export type MessageType = {
   id: string;
@@ -17,7 +16,7 @@ export type MessagesPageType = {
   dialogsTxtAreaValue: string;
 };
 
-type ActionType = AddMessageActionType | ChangeDialogsTxtAreaValueActionType;
+type ActionType = AddMessageActionType;
 
 type InitialMessagesPageStateType = typeof initialState;
 const initialState = {
@@ -57,7 +56,6 @@ const initialState = {
       message: "How are you?",
     },
   ],
-  dialogsTxtAreaValue: "",
 } as MessagesPageType;
 
 export const dialogsReducer = (
@@ -70,29 +68,16 @@ export const dialogsReducer = (
         ...state,
         messages: [
           ...state.messages,
-          { id: v1(), message: state.dialogsTxtAreaValue },
+          { id: v1(), message: action.payload.message },
         ],
         dialogsTxtAreaValue: "",
       };
-    case CHANGE_DIALOGS_TXT_AREA_VALUE:
-      return { ...state, dialogsTxtAreaValue: action.payload.text };
     default:
       return state;
   }
 };
 
 type AddMessageActionType = ReturnType<typeof addMessage>;
-export const addMessage = () => {
-  return { type: ADD_MESSAGE } as const;
-};
-type ChangeDialogsTxtAreaValueActionType = ReturnType<
-  typeof changeTxtAreaValue
->;
-export const changeTxtAreaValue = (text: string) => {
-  return {
-    type: CHANGE_DIALOGS_TXT_AREA_VALUE,
-    payload: {
-      text,
-    },
-  } as const;
+export const addMessage = (message: string) => {
+  return { type: ADD_MESSAGE, payload: { message } } as const;
 };

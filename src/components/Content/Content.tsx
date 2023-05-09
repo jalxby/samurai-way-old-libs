@@ -3,9 +3,9 @@ import head_logo from "../../img/head_content_img.png";
 import s from "./Content.module.css";
 import Messages from "./Messages/Messages";
 import { Route } from "react-router-dom";
-import Login from "../Login/Login";
 import ProfileContainer from "./Profile/ProfileContainer";
 import UsersContainer from "./Users/UsersContainer";
+import LoginContainer from "../Login/LoginContainer";
 
 type ContentType = {
   // store: Store<StoreType, ActionType>
@@ -18,7 +18,7 @@ const Content: FC<ContentType> = (props) => {
         <Route path={"/profile/:userId?"} render={() => <ProfileContainer />} />
         <Route path={"/messages"} render={() => <Messages />} />
         <Route path={"/users"} render={() => <UsersContainer />} />
-        <Route path={"/login"} render={() => <Login />}></Route>
+        <Route path={"/login"} render={() => <LoginContainer />}></Route>
       </div>
     </div>
   );

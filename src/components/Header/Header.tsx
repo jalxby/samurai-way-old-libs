@@ -6,17 +6,24 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import s from "./Header.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { HeaderPropsType } from "./HeaderContainer";
 import { Preloader } from "../../Common/Preloader/Preloader";
 
 const Header = (props: HeaderPropsType) => {
-  const isAused = props.isFetching ? (
+  const isAuth = props.isFetching ? (
     <Preloader size={30} />
-  ) : props.isAused ? (
-    props.login
+  ) : props.isAuth ? (
+    <div>
+      <div>{props.login}</div>
+      <Button color="inherit" onClick={props.logout}>
+        Logout
+      </Button>
+    </div>
   ) : (
-    <Button color="inherit">Login</Button>
+    <NavLink color="inherit" to={"/login"}>
+      Login
+    </NavLink>
   );
 
   return (
@@ -35,7 +42,7 @@ const Header = (props: HeaderPropsType) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
           </Typography>
-          <NavLink to={"/auth"}>{isAused}</NavLink>
+          <NavLink to={"/auth"}>{isAuth}</NavLink>
         </Toolbar>
       </AppBar>
     </>
