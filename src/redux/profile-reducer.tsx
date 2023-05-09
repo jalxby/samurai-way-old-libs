@@ -3,7 +3,6 @@ import { Dispatch } from "redux";
 import { profileAPI, usersAPI } from "../api/api";
 
 const ADD_POST = "ADD-POST";
-const CHANGE_POST_TXT_AREA_VALUE = "CHANGE-POST-TXT-AREA-VALUE";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_USER_STATUS = "SET-USER-STATUS";
 
@@ -92,6 +91,8 @@ export const profileReducer = (
   }
 };
 
+//action creators
+
 type AddPostActionType = ReturnType<typeof addPost>;
 export const addPost = (post: string) => {
   return {
@@ -122,28 +123,24 @@ export const setUserStatus = (status: string) => {
   } as const;
 };
 
-export const getUserProfile = (userId: string) => {
-  return (dispatch: Dispatch) => {
-    usersAPI.getProfile(userId).then((response) => {
-      dispatch(setUserProfile(response.data));
-    });
-  };
+//thunks
+
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+  usersAPI.getProfile(userId).then((response) => {
+    dispatch(setUserProfile(response.data));
+  });
 };
 
-export const getUserStatus = (userId: string) => {
-  return (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId).then((response) => {
-      dispatch(setUserStatus(response.data));
-    });
-  };
+export const getUserStatus = (userId: string) => (dispatch: Dispatch) => {
+  profileAPI.getStatus(userId).then((response) => {
+    dispatch(setUserStatus(response.data));
+  });
 };
 
-export const updateUserStatus = (newStatus: string) => {
-  return (dispatch: Dispatch) => {
-    profileAPI.updateStatus(newStatus).then((response) => {
-      if (response.data.resoltCode === 0) {
-        dispatch(setUserStatus(newStatus));
-      }
-    });
-  };
+export const updateUserStatus = (newStatus: string) => (dispatch: Dispatch) => {
+  profileAPI.updateStatus(newStatus).then((response) => {
+    if (response.data.resoltCode === 0) {
+      dispatch(setUserStatus(newStatus));
+    }
+  });
 };

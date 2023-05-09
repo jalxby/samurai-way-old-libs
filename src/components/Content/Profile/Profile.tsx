@@ -1,13 +1,13 @@
-import React, { FC } from "react";
+import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import { ProfilePropsType } from "./ProfileContainer";
 
 const Profile = (props: ProfilePropsType) => {
-    console.log(`Profile`)
+  console.log(`Profile`);
   return (
     <div>
-      <ProfileInfo {...props}/>
+      <ProfileInfo {...props} />
       <MyPostsContainer />
     </div>
   );

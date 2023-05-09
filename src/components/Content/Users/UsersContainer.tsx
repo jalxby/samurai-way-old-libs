@@ -68,4 +68,4 @@ export default connect(mapStateToProps, {
   setTotalUsersCount,
   getUsersThunkCreator,
   toggleFollow,
-})(withAuthRedirect(UsersClass));
+})(UsersClass);

@@ -61,21 +61,23 @@ export const setAuthUserData = (
   } as const;
 };
 
-export const getAuthUserData = () => (dispatch: Dispatch) => {
-  dispatch(toggleIsFetching(true));
-  authAPI
-    .getAuth()
-    .then((data) => {
-      if (data.resultCode === 0) {
-        const { id, login, email } = data.data;
-        dispatch(setAuthUserData(id, login, email, true));
-        dispatch(toggleIsFetching(false));
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+export const getAuthUserData =
+  (): ThunkAction<Promise<any>, StateType, unknown, AnyAction> =>
+  (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true));
+    return authAPI
+      .getAuth()
+      .then((data) => {
+        if (data.resultCode === 0) {
+          const { id, login, email } = data.data;
+          dispatch(setAuthUserData(id, login, email, true));
+          dispatch(toggleIsFetching(false));
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
 export const logIn =
   (
@@ -85,7 +87,6 @@ export const logIn =
   ): ThunkAction<void, StateType, unknown, AnyAction> =>
   (dispatch) => {
     authAPI.login(email, password, rememberMe).then((data) => {
-      debugger;
       if (data.resultCode === 0) {
         dispatch(getAuthUserData());
       } else {

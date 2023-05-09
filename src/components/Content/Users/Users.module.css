@@ -1,66 +1,68 @@
 .users {
-  padding: 10px;
+    padding: 10px;
 }
 
 .buttons {
 }
 
 .user {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: stretch;
-  width: 700px;
-  margin: 0 auto 3px;
-  gap: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 700px;
+    margin: 0 auto 3px;
+    gap: 10px;
 }
 
 .userInfo {
-  width: 90%;
-  padding: 4px;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas:
+    width: 90%;
+    padding: 4px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
     "name location"
     "status location";
-  color: white;
-  border-radius: 10px;
-  border: 2px solid white;
-  background-color: dodgerblue;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid white;
+    background-color: dodgerblue;
 }
 
 .userName {
-  grid-area: name;
-  align-self: start;
+    grid-area: name;
+    align-self: start;
 }
 
 .status {
-  grid-area: status;
-  align-self: end;
+    grid-area: status;
+    align-self: end;
 }
 
 .location {
-  grid-area: location;
-  justify-self: end;
+    grid-area: location;
+    justify-self: end;
 }
 
 .usersAvatar {
-  width: 50px;
-  border-radius: 50%;
+    width: 50px;
+    border-radius: 50%;
 }
 
 .avatarAndButton {
-  display: flex;
-  flex-direction: column;
-  row-gap: 3px;
-  align-items: center;
-  width: 70px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3px;
+    align-items: center;
+    width: 70px;
 }
+
 .page {
-  border: 1px solid;
+    border: 1px solid;
 }
+
 .selectedPage {
-  font-weight: bold;
-  border: 2px solid;
+    font-weight: bold;
+    border: 2px solid;
 }
