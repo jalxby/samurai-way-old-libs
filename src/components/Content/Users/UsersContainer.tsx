@@ -13,6 +13,7 @@ import {
 import { withAuthRedirect } from "../../../hoc/WithAuthRedirect";
 import {
   getCurrentPage,
+  getFake,
   getIsAuth,
   getIsFetching,
   getPageSize,
@@ -29,6 +30,7 @@ type MapStatePropsType = {
   isFetching: boolean;
   userIsFollowingIDS: number[];
   isAuth: boolean;
+  fake: UserType[];
 };
 
 type MapDispatchPropsType = {
@@ -52,6 +54,7 @@ class UsersClass extends React.Component<UsersPropsType> {
   };
 
   render() {
+    console.log("USERS RENDERING");
     return (
       <div>
         {this.props.isFetching && <Preloader />}
@@ -74,6 +77,7 @@ class UsersClass extends React.Component<UsersPropsType> {
 // };
 
 const mapStateToProps = (state: StateType): MapStatePropsType => {
+  console.log("mapStateToProps USERS");
   return {
     items: getUsers(state),
     pageSize: getPageSize(state),
@@ -82,6 +86,7 @@ const mapStateToProps = (state: StateType): MapStatePropsType => {
     isFetching: getIsFetching(state),
     userIsFollowingIDS: getUserIsFollowingIDS(state),
     isAuth: getIsAuth(state),
+    fake: getFake(state),
   };
 };
 export default connect(mapStateToProps, {

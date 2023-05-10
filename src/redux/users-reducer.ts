@@ -28,10 +28,13 @@ export type UsersPageType = {
   isFetching: boolean;
   error: string | null;
   userIsFollowingIDS: Array<number>;
+  fake: number;
 };
 
 type InitialStateType = typeof initialUsersState;
-
+type FakeType = {
+  type: "FAKE";
+};
 type ActionType =
   | FollowACType
   | UnfollowACType
@@ -39,7 +42,8 @@ type ActionType =
   | SelectPageACType
   | SetTotalUsersCountACType
   | IsFetchingACType
-  | IsFollowingInProgressACType;
+  | IsFollowingInProgressACType
+  | FakeType;
 
 const initialUsersState = {
   items: [],
@@ -49,6 +53,7 @@ const initialUsersState = {
   isFetching: true,
   error: null,
   userIsFollowingIDS: [],
+  fake: 1,
 } as UsersPageType;
 
 export const usersReducer = (
@@ -56,6 +61,8 @@ export const usersReducer = (
   action: ActionType
 ): InitialStateType => {
   switch (action.type) {
+    case "FAKE":
+      return { ...state, fake: state.fake + 1 };
     case FOLLOW:
       return {
         ...state,
