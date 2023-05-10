@@ -11,6 +11,15 @@ import {
   UserType,
 } from "../../../redux/users-reducer";
 import { withAuthRedirect } from "../../../hoc/WithAuthRedirect";
+import {
+  getCurrentPage,
+  getIsAuth,
+  getIsFetching,
+  getPageSize,
+  getTotalCount,
+  getUserIsFollowingIDS,
+  getUsers,
+} from "../../../redux/users-selectors";
 
 type MapStatePropsType = {
   items: UserType[];
@@ -52,15 +61,27 @@ class UsersClass extends React.Component<UsersPropsType> {
   }
 }
 
+// const mapStateToProps = (state: StateType): MapStatePropsType => {
+//   return {
+//     items: state.usersPage.items,
+//     pageSize: state.usersPage.pageSize,
+//     totalCount: state.usersPage.totalCount,
+//     currentPage: state.usersPage.currentPage,
+//     isFetching: state.usersPage.isFetching,
+//     userIsFollowingIDS: state.usersPage.userIsFollowingIDS,
+//     isAuth: state.auth.isAuth,
+//   };
+// };
+
 const mapStateToProps = (state: StateType): MapStatePropsType => {
   return {
-    items: state.usersPage.items,
-    pageSize: state.usersPage.pageSize,
-    totalCount: state.usersPage.totalCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    userIsFollowingIDS: state.usersPage.userIsFollowingIDS,
-    isAuth: state.auth.isAuth,
+    items: getUsers(state),
+    pageSize: getPageSize(state),
+    totalCount: getTotalCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    userIsFollowingIDS: getUserIsFollowingIDS(state),
+    isAuth: getIsAuth(state),
   };
 };
 export default connect(mapStateToProps, {
