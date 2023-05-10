@@ -15,7 +15,6 @@ const ProfileInfo = (props: ProfilePropsType) => {
   if (!props.profile) {
     return <Preloader />;
   }
-
   return (
     <div className={s.profileInfo}>
       <img

@@ -42,7 +42,7 @@ export const profileAPI = {
   },
 
   updateStatus(status: string) {
-    return instance.put(`/profile/status`, { status });
+    return instance.put<GetStatusType>(`/profile/status`, { status });
   },
 };
 
@@ -59,4 +59,11 @@ export const authAPI = {
   logOff() {
     return instance.delete(`/auth/login`).then((response) => response.data);
   },
+};
+
+type GetStatusType = {
+  data: {};
+  messages: [];
+  fieldErrors: [];
+  resultCode: number;
 };

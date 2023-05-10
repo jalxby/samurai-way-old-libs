@@ -30,6 +30,7 @@ type PropsType = RouteComponentProps<UrlParamsType> & ProfilePropsType;
 
 class ProfileContainer extends React.Component<PropsType> {
   componentDidMount() {
+    console.log(this.props.status);
     let userId: string = this.props.match.params.userId;
     const id = this.props.isAuthUserID
       ? this.props.isAuthUserID.toString()

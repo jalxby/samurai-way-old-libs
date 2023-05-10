@@ -4,33 +4,27 @@ type PropsType = {
   status: string;
   updateUserStatus: (status: string) => void;
 };
-type InitStateType = {
-  editMode: boolean;
-  status: string;
-};
+
 export const ProfileStatusWithHooks: FC<PropsType> = (props) => {
-  const initState: InitStateType = {
-    editMode: false,
-    status: props.status,
-  };
-  const [state, setState] = useState<InitStateType>(initState);
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const [status, setStatus] = useState<string>(props.status);
 
   function onEditMode() {
-    setState({ ...state, editMode: true });
+    setEditMode(true);
   }
 
   function offEditMode() {
-    setState({ ...state, editMode: false });
-    props.updateUserStatus(state.status);
+    setEditMode(false);
+    props.updateUserStatus(status);
   }
 
   function onChangeInput(e: ChangeEvent<HTMLInputElement>) {
-    setState({ ...state, status: e.currentTarget.value });
+    setStatus(e.currentTarget.value);
   }
 
   return (
     <>
-      {!state.editMode ? (
+      {!editMode ? (
         <div>
           <span onDoubleClick={onEditMode}>
             {props.status || "double click to set yours status"}
@@ -42,7 +36,7 @@ export const ProfileStatusWithHooks: FC<PropsType> = (props) => {
             autoFocus={true}
             onBlur={offEditMode}
             type={"text"}
-            value={state.status}
+            value={status}
             onChange={onChangeInput}
           />
         </div>
