@@ -1,10 +1,9 @@
 import React from "react";
 import s from "./Users.module.css";
-import { v1 } from "uuid";
 import { UserType } from "../../../redux/users-reducer";
 import { NavLink } from "react-router-dom";
 import { UsersPropsType } from "./UsersContainer";
-import clsx from "clsx";
+import Pagination from "@mui/material/Pagination";
 
 type PropsType = {
   onClickPage: (el: number) => void;
@@ -21,18 +20,20 @@ export const Users = (props: PropsType) => {
     props.toggleFollow(user);
   };
 
-  const buttons = pages.map((el) => {
-    const className = clsx(s.page, el === props.currentPage && s.selectedPage);
-    return (
-      <button
-        key={v1()}
-        className={className}
-        onClick={() => props.onClickPage(el)}
-      >
-        {el}
-      </button>
-    );
-  });
+  // const buttons = pages.map((el) => {
+  //   return (
+  //     <button key={v1()} onClick={() => props.onClickPage(el)}>
+  //       {el}
+  //     </button>
+  //   );
+  // });
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    props.onClickPage(page);
+  };
 
   const users = props.items.map((u) => {
     const buttonName = u.followed ? "Unfollow" : "Follow";
@@ -69,9 +70,26 @@ export const Users = (props: PropsType) => {
   return (
     <>
       <div className={s.buttons}>
-        <span>{buttons}</span>
+        <Pagination
+          count={pagesCount}
+          shape="rounded"
+          onChange={handlePageChange}
+          variant="outlined"
+          page={props.currentPage}
+        />
       </div>
       <div className={s.users}>{users}</div>
     </>
   );
 };
+
+// import Stack from '@mui/material/Stack';
+//
+// export default function PaginationRounded() {
+//   return (
+//       <Stack spacing={2}>
+//         <Pagination count={10} shape="rounded" />
+//         <Pagination count={10} variant="outlined" shape="rounded" />
+//       </Stack>
+//   );
+// }
