@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import { usersAPI } from "../api/api";
+import { updateObjectInArray } from "../utils/object.helper";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -66,8 +67,11 @@ export const usersReducer = (
     case FOLLOW:
       return {
         ...state,
-        items: state.items.map((u) =>
-          u.id === action.payload.id ? { ...u, followed: true } : u
+        items: updateObjectInArray<UserType>(
+          state.items,
+          action.payload.id,
+          "id",
+          { followed: true }
         ),
       };
     case UNFOLLOW:
@@ -169,28 +173,26 @@ export const isFollowingProgress = (isFetching: boolean, userID: number) => {
   } as const;
 };
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-  return (dispatch: Dispatch) => {
+export const getUsersThunkCreator =
+  (currentPage: number, pageSize: number) => async (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(true));
     dispatch(setCurrentPage(currentPage));
-    usersAPI.getUsers(currentPage, pageSize).then((data) => {
-      dispatch(setUsers(data.items));
-      dispatch(setTotalUsersCount(data.totalCount));
-      dispatch(toggleIsFetching(false));
-    });
+    const res = await usersAPI.getUsers(currentPage, pageSize);
+    dispatch(setUsers(res.items));
+    dispatch(setTotalUsersCount(res.totalCount));
+    dispatch(toggleIsFetching(false));
   };
-};
 
 export const toggleFollow = (user: UserType) => async (dispatch: Dispatch) => {
   try {
     dispatch(isFollowingProgress(true, user.id));
     const isFollowed = await usersAPI.getFollow(user.id);
     if (isFollowed) {
-      const unFollowed = await usersAPI.deleteFollow(user.id);
-      unFollowed.resultCode === 0 && dispatch(unfollow(user.id));
+      const isFollowed = await usersAPI.deleteFollow(user.id);
+      isFollowed.resultCode === 0 && dispatch(unfollow(user.id));
     } else {
-      const followed = await usersAPI.postFollow(user.id);
-      followed.resultCode === 0 && dispatch(follow(user.id));
+      const isFollowed = await usersAPI.postFollow(user.id);
+      isFollowed.resultCode === 0 && dispatch(follow(user.id));
     }
     dispatch(isFollowingProgress(false, user.id));
   } catch (err) {

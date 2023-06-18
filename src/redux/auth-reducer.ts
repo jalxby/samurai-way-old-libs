@@ -1,13 +1,13 @@
+import { AnyAction, Dispatch } from "redux";
+import { stopSubmit } from "redux-form";
+import { ThunkAction } from "redux-thunk";
+import { authAPI } from "../api/api";
+import { StateType } from "./redux-store";
 import {
   IsFetchingACType,
   TOGGLE_IS_FETCHING,
   toggleIsFetching,
 } from "./users-reducer";
-import { authAPI } from "../api/api";
-import { AnyAction, Dispatch } from "redux";
-import { StateType } from "./redux-store";
-import { ThunkAction } from "redux-thunk";
-import { stopSubmit } from "redux-form";
 
 const SET_USER_DATA = "SET-USER-DATA";
 
@@ -63,20 +63,14 @@ export const setAuthUserData = (
 
 export const getAuthUserData =
   (): ThunkAction<Promise<any>, StateType, unknown, AnyAction> =>
-  (dispatch: Dispatch) => {
+  async (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(true));
-    return authAPI
-      .getAuth()
-      .then((data) => {
-        if (data.resultCode === 0) {
-          const { id, login, email } = data.data;
-          dispatch(setAuthUserData(id, login, email, true));
-          dispatch(toggleIsFetching(false));
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const res = await authAPI.getAuth();
+    if (res.resultCode === 0) {
+      const { id, login, email } = res.data;
+      dispatch(setAuthUserData(id, login, email, true));
+      dispatch(toggleIsFetching(false));
+    }
   };
 
 export const logIn =
@@ -85,22 +79,20 @@ export const logIn =
     password: string,
     rememberMe: boolean
   ): ThunkAction<void, StateType, unknown, AnyAction> =>
-  (dispatch) => {
-    authAPI.login(email, password, rememberMe).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(getAuthUserData());
-      } else {
-        let error = data.messages.length > 0 ? data.messages[0] : "Some Error";
-        dispatch(stopSubmit("loginForm", { _error: error }));
-      }
-    });
+  async (dispatch) => {
+    const res = await authAPI.login(email, password, rememberMe);
+    if (res.resultCode === 0) {
+      dispatch(getAuthUserData());
+    } else {
+      let error = res.messages.length > 0 ? res.messages[0] : "Some Error";
+      dispatch(stopSubmit("loginForm", { _error: error }));
+    }
   };
 
 export const logout =
-  (): ThunkAction<void, StateType, unknown, AnyAction> => (dispatch) => {
-    authAPI.logOff().then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(setAuthUserData(null, null, null, false));
-      }
-    });
+  (): ThunkAction<void, StateType, unknown, AnyAction> => async (dispatch) => {
+    const res = await authAPI.logOff();
+    if (res.resultCode === 0) {
+      dispatch(setAuthUserData(null, null, null, false));
+    }
   };

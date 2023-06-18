@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
-import { getAuthUserData } from "./auth-reducer";
 import { ThunkAction } from "redux-thunk";
+import { getAuthUserData } from "./auth-reducer";
 import { StateType } from "./redux-store";
 
 const initState: InitStateType = {
@@ -27,10 +27,9 @@ export const toggleInitializedAC = (isInitialized: boolean) =>
 
 // thunks
 export const initializeApp =
-  (): ThunkAction<void, StateType, unknown, AnyAction> => (dispatch) => {
-    dispatch(getAuthUserData()).then(() => {
-      dispatch(toggleInitializedAC(true));
-    });
+  (): ThunkAction<void, StateType, unknown, AnyAction> => async (dispatch) => {
+    await dispatch(getAuthUserData());
+    dispatch(toggleInitializedAC(true));
   };
 
 type InitStateType = {

@@ -1,14 +1,14 @@
-import React from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import { LinearProgress } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { Preloader } from "../../common/Preloader/Preloader";
 import s from "./Header.module.css";
-import { NavLink, Redirect } from "react-router-dom";
 import { HeaderPropsType } from "./HeaderContainer";
-import { Preloader } from "../../Common/Preloader/Preloader";
 
 const Header = (props: HeaderPropsType) => {
   const isAuth = props.isFetching ? (
@@ -39,12 +39,9 @@ const Header = (props: HeaderPropsType) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography>
           <NavLink to={"/login"}>{isAuth}</NavLink>
-          {/*<Redirect to={"/profile"} />*/}
         </Toolbar>
+        <div>{props.isFetching && <LinearProgress />}</div>
       </AppBar>
     </>
   );

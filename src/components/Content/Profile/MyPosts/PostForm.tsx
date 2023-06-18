@@ -4,7 +4,7 @@ import {
   maxCheck,
   requiredField,
 } from "../../../../utils/validators/validators";
-import { Textarea } from "../../../../Common/FormsControl/FormsControls";
+import { Textarea } from "../../../../common/FormsControl/FormsControls";
 
 export type FormDataType = {
   post: string;

@@ -1,11 +1,11 @@
-import { v1 } from "uuid";
 import { Dispatch } from "redux";
+import { v1 } from "uuid";
 import { profileAPI, usersAPI } from "../api/api";
 
-const ADD_POST = "ADD-POST";
-const DELETE_POST = "DELETE-POST";
-const SET_USER_PROFILE = "SET-USER-PROFILE";
-const SET_USER_STATUS = "SET-USER-STATUS";
+const ADD_POST = "/network/profile/ADD-POST";
+const DELETE_POST = "/network/profile/DELETE-POST";
+const SET_USER_PROFILE = "/network/profile/SET-USER-PROFILE";
+const SET_USER_STATUS = "/network/profile/SET-USER-STATUS";
 
 export type PostType = {
   id: string;
@@ -137,22 +137,21 @@ export const setUserStatus = (status: string) => {
 
 //thunks
 
-export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
-  usersAPI.getProfile(userId).then((response) => {
-    dispatch(setUserProfile(response.data));
-  });
+export const getUserProfile =
+  (userId: string) => async (dispatch: Dispatch) => {
+    const res = await usersAPI.getProfile(userId);
+    dispatch(setUserProfile(res.data));
+  };
+
+export const getUserStatus = (userId: string) => async (dispatch: Dispatch) => {
+  const res = await profileAPI.getStatus(userId);
+  dispatch(setUserStatus(res.data));
 };
 
-export const getUserStatus = (userId: string) => (dispatch: Dispatch) => {
-  profileAPI.getStatus(userId).then((response) => {
-    dispatch(setUserStatus(response.data));
-  });
-};
-
-export const updateUserStatus = (newStatus: string) => (dispatch: Dispatch) => {
-  profileAPI.updateStatus(newStatus).then((response) => {
-    if (response.data.resultCode === 0) {
+export const updateUserStatus =
+  (newStatus: string) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.updateStatus(newStatus);
+    if (res.data.resultCode === 0) {
       dispatch(setUserStatus(newStatus));
     }
-  });
-};
+  };

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
-import { Input } from "../../Common/FormsControl/FormsControls";
+import { Input } from "../../common/FormsControl/FormsControls";
 import { maxCheck, requiredField } from "../../utils/validators/validators";
 
 export type FormDataType = {

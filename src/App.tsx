@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { initializeApp } from "./redux/app-reducer";
 import { StateType } from "./redux/redux-store";
-import { Preloader } from "./Common/Preloader/Preloader";
+import { Preloader } from "./common/Preloader/Preloader";
 
 class App extends React.Component<AppPropsType> {
   componentDidMount() {

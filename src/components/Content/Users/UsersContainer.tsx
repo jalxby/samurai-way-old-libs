@@ -1,8 +1,6 @@
+import React from "react";
 import { connect } from "react-redux";
 import { StateType } from "../../../redux/redux-store";
-import React from "react";
-import { Users } from "./Users";
-import { Preloader } from "../../../Common/Preloader/Preloader";
 import {
   getUsersThunkCreator,
   setTotalUsersCount,
@@ -10,7 +8,6 @@ import {
   toggleFollow,
   UserType,
 } from "../../../redux/users-reducer";
-import { withAuthRedirect } from "../../../hoc/WithAuthRedirect";
 import {
   getCurrentPage,
   getFake,
@@ -21,6 +18,7 @@ import {
   getUserIsFollowingIDS,
   getUsers,
 } from "../../../redux/users-selectors";
+import { Users } from "./Users";
 
 type MapStatePropsType = {
   items: UserType[];
@@ -57,24 +55,11 @@ class UsersClass extends React.Component<UsersPropsType> {
     console.log("USERS RENDERING");
     return (
       <div>
-        {this.props.isFetching && <Preloader />}
         <Users {...this.props} onClickPage={this.onClickPage} />
       </div>
     );
   }
 }
-
-// const mapStateToProps = (state: StateType): MapStatePropsType => {
-//   return {
-//     items: state.usersPage.items,
-//     pageSize: state.usersPage.pageSize,
-//     totalCount: state.usersPage.totalCount,
-//     currentPage: state.usersPage.currentPage,
-//     isFetching: state.usersPage.isFetching,
-//     userIsFollowingIDS: state.usersPage.userIsFollowingIDS,
-//     isAuth: state.auth.isAuth,
-//   };
-// };
 
 const mapStateToProps = (state: StateType): MapStatePropsType => {
   console.log("mapStateToProps USERS");
