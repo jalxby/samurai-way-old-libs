@@ -3,6 +3,7 @@ import { Dispatch } from "redux";
 import { profileAPI, usersAPI } from "../api/api";
 
 const ADD_POST = "ADD-POST";
+const DELETE_POST = "DELETE-POST";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_USER_STATUS = "SET-USER-STATUS";
 
@@ -43,7 +44,8 @@ export type ProfilePageType = {
 type ActionType =
   | AddPostActionType
   | SetUserProfileActionType
-  | SetUserStatusActionType;
+  | SetUserStatusActionType
+  | DeletePostActionType;
 
 type InitialStateType = typeof initialState;
 const initialState = {
@@ -82,6 +84,11 @@ export const profileReducer = (
           { id: v1(), message: action.payload.post, likes: 0 },
         ],
       };
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter((p) => p.id !== action.payload.postID),
+      };
     case SET_USER_PROFILE:
       return { ...state, profile: action.payload.profile };
     case SET_USER_STATUS:
@@ -101,6 +108,11 @@ export const addPost = (post: string) => {
       post,
     },
   } as const;
+};
+
+type DeletePostActionType = ReturnType<typeof deletePost>;
+export const deletePost = (postID: string) => {
+  return { type: DELETE_POST, payload: { postID } } as const;
 };
 
 type SetUserProfileActionType = ReturnType<typeof setUserProfile>;
